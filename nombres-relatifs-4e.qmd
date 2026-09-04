@@ -1,6 +1,6 @@
 ---
 title: "Feuille d'exercices : opérations sur les nombres relatifs"
-subtitle: "Chapitre 1 --- Nombres relatifs en écriture décimale --- Classe de 5^e^"
+subtitle: "Chapitre 1 --- Nombres relatifs en écriture décimale --- Classe de 4^e^"
 corrige: true   # passer à false pour imprimer la feuille SANS le corrigé
 format:
   pdf:
