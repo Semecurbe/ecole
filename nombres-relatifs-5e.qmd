@@ -1,0 +1,489 @@
+---
+title: "Feuille d'exercices : opérations sur les nombres relatifs"
+subtitle: "Chapitre 1 --- Nombres relatifs en écriture décimale --- Classe de 5^e^"
+corrige: true   # passer à false pour imprimer la feuille SANS le corrigé
+format:
+  pdf:
+    documentclass: article
+    papersize: a4
+    fontsize: 11pt
+    pdf-engine: pdflatex   # babel-français : espaces insécables avant ? ! ; :
+    number-sections: false
+    geometry:
+      - top=17mm
+      - bottom=18mm
+      - left=17mm
+      - right=17mm
+    include-in-header:
+      text: |
+        % babel chargé ici (et non via lang: fr) pour bénéficier de la
+        % typographie française : espaces insécables avant ? ! ; : et « »
+        \usepackage[french]{babel}
+        \usepackage{amsmath,amssymb}
+        \usepackage{enumitem}
+        \usepackage{multicol}
+        \usepackage{tikz}
+        \usepackage{xcolor}
+        \usepackage{titlesec}
+        \usepackage{titling}
+
+        % bloc de titre compact
+        \setlength{\droptitle}{-16mm}
+        \posttitle{\par\end{center}\vspace{-6mm}}
+
+        \definecolor{ctitre}{HTML}{B22222}
+        \definecolor{csous}{HTML}{1F4E79}
+
+        \titleformat{\section}{\normalfont\large\bfseries\color{ctitre}}{\thesection}{0.5em}{}
+        \titleformat{\subsection}{\normalfont\normalsize\bfseries\color{csous}}{\thesubsection}{0.5em}{}
+        \titlespacing*{\section}{0pt}{2.2ex plus 1ex minus .2ex}{1.2ex plus .2ex}
+        \titlespacing*{\subsection}{0pt}{2.4ex plus 1ex minus .2ex}{1ex plus .2ex}
+
+        \setlist[enumerate]{itemsep=0.4em, topsep=0.35em}
+        \setlist[itemize]{itemsep=0.3em, topsep=0.3em}
+        \setlength{\columnsep}{8mm}
+
+        % espace de réponse laissé à l'élève (modifier la valeur pour aérer plus ou moins)
+        \newcommand{\rep}[1][12mm]{\par\vspace{#1}}
+---
+
+```{=latex}
+\noindent\textbf{Nom :} \hrulefill\ \textbf{Prénom :} \hrulefill\ \textbf{Classe :} \hrulefill
+
+\vspace{1.5mm}
+\noindent{\small\itshape Difficulté : $\star$ application directe du cours, $\star\star$ il faut réfléchir, $\star\star\star$ pour aller plus loin.}
+
+\vspace{1.5mm}\hrule
+```
+
+# Partie 1 --- Questions de cours
+
+*Répondre par des phrases complètes, sans regarder le cours.*
+
+1. Sur une droite graduée, comment appelle-t-on le nombre qui repère un point ?
+   \rep[8mm]
+
+2. Donner la définition de la **distance à zéro** d'un nombre relatif.
+   \rep[10mm]
+
+3. Quelle est la distance à zéro de $-7{,}5$ ? de $+3{,}2$ ? de $0$ ?
+   \rep[7mm]
+
+4. Que sont deux **nombres opposés** ? Donner l'opposé de $-4{,}7$, puis celui de $+12$.
+   \rep[10mm]
+
+5. Énoncer la règle permettant d'additionner deux nombres relatifs **de même signe**, puis l'illustrer par un exemple.
+   \rep[10mm]
+
+6. Énoncer la règle permettant d'additionner deux nombres relatifs **de signes différents**, puis l'illustrer par un exemple.
+   \rep[10mm]
+
+7. Combien vaut la somme de deux nombres opposés ?
+   \rep[6mm]
+
+8. Énoncer la règle permettant de **soustraire** un nombre relatif, puis l'appliquer au calcul $(+3)-(+9)$.
+   \rep[10mm]
+
+9. Citer les trois règles de **simplification d'écriture** vues dans le cours.
+   \rep[12mm]
+
+10. Deux points sont symétriques par rapport à l'origine O d'une droite graduée. Que peut-on dire de leurs abscisses ?
+    \rep[7mm]
+
+{{< pagebreak >}}
+
+# Partie 2 --- QCM : teste tes réflexes
+
+*Une seule réponse est correcte par question. Cocher la bonne case. Durée conseillée : 10 minutes.*
+
+```{=latex}
+\begingroup\setlength{\parskip}{3.6mm}
+```
+
+**1.** La distance à zéro de $-5{,}4$ est :\
+$\square$ **a.** $5{,}4$ $\qquad$ $\square$ **b.** $-5{,}4$ $\qquad$ $\square$ **c.** $-4{,}5$ $\qquad$ $\square$ **d.** $0$
+
+**2.** L'opposé de $+8{,}3$ est :\
+$\square$ **a.** $+3{,}8$ $\qquad$ $\square$ **b.** $-8{,}3$ $\qquad$ $\square$ **c.** $+8{,}3$ $\qquad$ $\square$ **d.** $-3{,}8$
+
+**3.** $(-7)+(-9)$ est égal à :\
+$\square$ **a.** $-2$ $\qquad$ $\square$ **b.** $+16$ $\qquad$ $\square$ **c.** $-16$ $\qquad$ $\square$ **d.** $+2$
+
+**4.** $(+12)+(-5)$ est égal à :\
+$\square$ **a.** $+7$ $\qquad$ $\square$ **b.** $-7$ $\qquad$ $\square$ **c.** $+17$ $\qquad$ $\square$ **d.** $-17$
+
+**5.** $(-4{,}5)+(+4{,}5)$ est égal à :\
+$\square$ **a.** $-9$ $\qquad$ $\square$ **b.** $+9$ $\qquad$ $\square$ **c.** $0$ $\qquad$ $\square$ **d.** $4{,}5$
+
+**6.** $(+3)-(+11)$ est égal à :\
+$\square$ **a.** $+14$ $\qquad$ $\square$ **b.** $-14$ $\qquad$ $\square$ **c.** $+8$ $\qquad$ $\square$ **d.** $-8$
+
+**7.** $(-6)-(-10)$ est égal à :\
+$\square$ **a.** $+4$ $\qquad$ $\square$ **b.** $-4$ $\qquad$ $\square$ **c.** $-16$ $\qquad$ $\square$ **d.** $+16$
+
+**8.** L'écriture simplifiée de $(+7)+(-15)$ est :\
+$\square$ **a.** $7+15$ $\qquad$ $\square$ **b.** $-7+15$ $\qquad$ $\square$ **c.** $7-15$ $\qquad$ $\square$ **d.** $-7-15$
+
+**9.** $-9+4$ est égal à :\
+$\square$ **a.** $-13$ $\qquad$ $\square$ **b.** $+5$ $\qquad$ $\square$ **c.** $+13$ $\qquad$ $\square$ **d.** $-5$
+
+**10.** Deux points symétriques par rapport à l'origine ont des abscisses :\
+$\square$ **a.** égales $\qquad$ $\square$ **b.** de même signe $\qquad$ $\square$ **c.** opposées $\qquad$ $\square$ **d.** toutes deux positives
+
+**11.** Le nombre manquant dans $(-8)+\dots=0$ est :\
+$\square$ **a.** $-8$ $\qquad$ $\square$ **b.** $0$ $\qquad$ $\square$ **c.** $+16$ $\qquad$ $\square$ **d.** $+8$
+
+**12.** $(-2{,}5)-(+3{,}5)$ est égal à :\
+$\square$ **a.** $+1$ $\qquad$ $\square$ **b.** $-6$ $\qquad$ $\square$ **c.** $-1$ $\qquad$ $\square$ **d.** $+6$
+
+```{=latex}
+\endgroup
+\vspace{6mm}
+\begin{center}
+\small
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\textbf{Question} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 \\ \hline
+\textbf{Réponse}  & & & & & & & & & & & & \\[3mm] \hline
+\end{tabular}
+\end{center}
+
+\vspace{3mm}
+\begin{center}\textbf{Score : \makebox[2.5cm]{\dotfill} / 12}\end{center}
+```
+
+{{< pagebreak >}}
+
+# Partie 3 --- Exercices
+
+## Exercice 1 --- Lire et placer sur une droite graduée $\star$
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[x=1.15cm]
+  \draw[->, thick] (-5.7,0) -- (5.9,0);
+  \foreach \x in {-5.5,-5,...,5.5} {\draw (\x,0.09) -- (\x,-0.09);}
+  \foreach \x in {-5,...,5} {\draw[thick] (\x,0.17) -- (\x,-0.17) node[below=1pt] {\small $\x$};}
+  \foreach \p/\n in {-4.5/A, -2/B, 1.5/C, 4.5/D} {
+    \fill (\p,0) circle (2.2pt);
+    \node[above=3pt] at (\p,0) {\small $\n$};
+  }
+  \node[above=3pt] at (0,0) {\small O};
+\end{tikzpicture}
+\end{center}
+```
+
+1. Lire l'abscisse de chacun des points A, B, C et D.
+2. Donner la distance à zéro de chacune de ces abscisses.
+3. Donner l'opposé de chacune de ces abscisses.
+4. Parmi ces quatre points, lesquels sont symétriques par rapport à l'origine O ? Justifier.
+5. Placer sur la droite le point E d'abscisse $-3$ et le point F d'abscisse $+2{,}5$.
+
+\rep[8mm]
+
+## Exercice 2 --- Distance à zéro et opposé $\star$
+
+Recopier et compléter le tableau suivant.
+
+```{=latex}
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+\textbf{Nombre relatif} & $-3{,}5$ & $+7$ & $-12{,}4$ & $0$ & $+0{,}8$ & $-100$ \\ \hline
+\textbf{Distance à zéro} & & & & & & \\[4mm] \hline
+\textbf{Opposé} & & & & & & \\[4mm] \hline
+\end{tabular}
+\end{center}
+```
+
+## Exercice 3 --- Additionner deux nombres de même signe $\star$
+
+Calculer en détaillant comme dans le cours, par exemple $(-5)+(-16)=-(5+16)=-21$.
+
+```{=latex}
+\begin{multicols}{2}
+```
+
+a. $(-7)+(-8)$
+b. $(+3{,}5)+(+6{,}2)$
+c. $(-12)+(-4{,}7)$
+d. $(-0{,}8)+(-0{,}9)$
+e. $(+15{,}3)+(+2{,}7)$
+f. $(-21{,}6)+(-8{,}4)$
+
+```{=latex}
+\end{multicols}
+```
+
+\rep[34mm]
+
+## Exercice 4 --- Additionner deux nombres de signes différents $\star$
+
+Calculer en détaillant comme dans le cours, par exemple $(+6)+(-17)=-(17-6)=-11$.
+
+```{=latex}
+\begin{multicols}{2}
+```
+
+a. $(+9)+(-4)$
+b. $(-13)+(+5)$
+c. $(+2{,}5)+(-7{,}5)$
+d. $(-6{,}3)+(+6{,}3)$
+e. $(-1{,}2)+(+9)$
+f. $(+0{,}7)+(-3{,}9)$
+
+```{=latex}
+\end{multicols}
+```
+
+\rep[34mm]
+
+{{< pagebreak >}}
+
+## Exercice 5 --- Soustraire un nombre relatif $\star\star$
+
+Transformer chaque soustraction en addition, **puis** calculer.
+
+```{=latex}
+\begin{multicols}{2}
+```
+
+a. $(+5)-(+12)$
+b. $(-9)-(+4)$
+c. $(+7)-(-3)$
+d. $(-6{,}5)-(-2{,}5)$
+e. $(-8)-(-14)$
+f. $(+1{,}3)-(+4{,}8)$
+
+```{=latex}
+\end{multicols}
+```
+
+\rep[45mm]
+
+## Exercice 6 --- Simplification d'écriture $\star\star$
+
+**1.** Écrire chaque calcul plus simplement, puis l'effectuer.
+
+```{=latex}
+\begin{multicols}{2}
+```
+
+a. $(+9)+(-14)$
+b. $(-3)+(-8)$
+c. $(+4{,}5)+(+2{,}5)$
+d. $(-7)-(-2)$
+e. $(+6{,}2)-(+9{,}2)$
+f. $(-1{,}5)-(+3{,}5)$
+
+```{=latex}
+\end{multicols}
+```
+
+\rep[40mm]
+
+**2.** À l'inverse, réécrire les expressions suivantes avec des parenthèses et des signes $+$ et $-$, puis les calculer.
+
+```{=latex}
+\begin{center}
+$-6+11$ \qquad\qquad $3-8$ \qquad\qquad $-2{,}5-4$
+\end{center}
+```
+
+\rep[30mm]
+
+## Exercice 7 --- Sommes de plusieurs termes $\star\star$
+
+Calculer astucieusement, en regroupant d'abord les nombres positifs entre eux et les nombres négatifs entre eux.
+
+```{=latex}
+\begin{multicols}{2}
+```
+
+a. $A=-7+12-5+3$
+b. $B=4{,}5-8+2{,}5-1$
+c. $C=-13+6-6+13$
+d. $D=-2{,}7+9-4{,}3+1$
+e. $E=-5{,}5-4{,}5+12-2$
+f. $F=-1{,}25+3-0{,}75-6$
+
+```{=latex}
+\end{multicols}
+```
+
+\rep[38mm]
+
+{{< pagebreak >}}
+
+## Exercice 8 --- Trouver le nombre manquant $\star\star$
+
+Compléter chaque égalité.
+
+```{=latex}
+\begin{multicols}{2}
+```
+
+a. $(-5)+\dots=0$
+b. $(+7)+\dots=+2$
+c. $\dots+(-4)=-11$
+d. $(-3)-\dots=+5$
+e. $\dots-(+6)=-2$
+f. $(-2{,}5)+\dots=-9$
+
+```{=latex}
+\end{multicols}
+```
+
+\rep[32mm]
+
+## Exercice 9 --- Problèmes $\star\star$
+
+1. **Températures.** À Moscou, il fait $-7\ ^\circ$C le matin et $+5{,}5\ ^\circ$C l'après-midi.
+   a. De combien de degrés la température a-t-elle augmenté entre le matin et l'après-midi ?
+   b. Pendant la nuit, elle baisse de $9{,}5\ ^\circ$C par rapport à l'après-midi. Quelle température fait-il alors ?
+
+2. **Plongée.** Un plongeur se trouve à l'altitude \mbox{$-18{,}5$~m}. Il remonte de \mbox{$6{,}5$~m}, puis redescend de \mbox{$12$~m}. À quelle altitude se trouve-t-il finalement ?
+
+3. **Compte bancaire.** Le solde du compte de Léa est de \mbox{$-45{,}60$~€}. Elle dépose \mbox{$120$~€}, puis retire \mbox{$90{,}50$~€}. Quel est son nouveau solde ?
+
+4. **Histoire.** Alexandre le Grand est né en l'an $-356$ et mort en l'an $-323$. Quel âge avait-il à sa mort ?
+
+\rep[55mm]
+
+## Exercice 10 --- Vrai ou faux $\star\star\star$
+
+Pour chaque affirmation, répondre par **vrai** ou **faux**, puis justifier : par une phrase si c'est vrai, par un contre-exemple si c'est faux.
+
+a. La somme de deux nombres négatifs est toujours négative.
+b. La somme de deux nombres relatifs est toujours plus grande que chacun des deux nombres.
+c. La différence de deux nombres négatifs est toujours négative.
+d. Soustraire un nombre négatif revient à ajouter un nombre positif.
+e. La distance à zéro d'un nombre relatif est toujours positive ou nulle.
+
+\rep[30mm]
+
+{{< pagebreak >}}
+
+## Exercice 11 --- La pyramide additive $\star\star\star$
+
+Chaque case est la somme des deux cases situées juste en dessous. Compléter la pyramide.
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[every node/.style={draw, minimum width=1.9cm, minimum height=0.9cm, align=center}]
+  \node at (0,0) {$-4$};
+  \node at (2,0) {$+7$};
+  \node at (4,0) {$-2$};
+  \node at (6,0) {$+5$};
+  \node at (1,1) {};
+  \node at (3,1) {};
+  \node at (5,1) {};
+  \node at (2,2) {};
+  \node at (4,2) {};
+  \node at (3,3) {};
+\end{tikzpicture}
+\end{center}
+```
+
+**Pour aller plus loin.** En gardant les mêmes quatre nombres à la base, mais dans l'ordre $+7$ ; $-4$ ; $+5$ ; $-2$, obtient-on le même sommet ? Expliquer.
+
+\rep[55mm]
+
+::: {.content-visible when-meta="corrige"}
+
+{{< pagebreak >}}
+
+# Corrigé
+
+## Partie 1 --- Questions de cours
+
+1. Ce nombre s'appelle l'**abscisse** du point.
+2. C'est la distance entre l'origine O et le point ayant ce nombre pour abscisse ; autrement dit, c'est le nombre écrit sans son signe.
+3. $7{,}5$ ; $3{,}2$ ; $0$.
+4. Deux nombres opposés ont la **même distance à zéro** et des **signes contraires**. L'opposé de $-4{,}7$ est $+4{,}7$ ; l'opposé de $+12$ est $-12$.
+5. On garde le signe commun et on additionne les distances à zéro. Exemple : $(-5)+(-16)=-(5+16)=-21$.
+6. On garde le signe du nombre qui a la plus grande distance à zéro, et on soustrait la plus petite distance à zéro à la plus grande. Exemple : $(+6)+(-17)=-(17-6)=-11$.
+7. Elle est égale à $0$.
+8. Soustraire un nombre relatif revient à **ajouter son opposé** : $(+3)-(+9)=(+3)+(-9)=-(9-3)=-6$.
+9. Lorsque le premier terme est positif, on supprime son signe $+$ ; le signe $+$ de l'addition n'est plus écrit ; les nombres relatifs ne sont plus écrits entre parenthèses.
+10. Elles sont **opposées** : même distance à zéro et signes contraires.
+
+## Partie 2 --- QCM
+
+```{=latex}
+\begin{center}
+\small
+\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\textbf{Question} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 \\ \hline
+\textbf{Réponse}  & a & b & c & a & c & d & a & c & d & c & d & b \\ \hline
+\end{tabular}
+\end{center}
+```
+
+## Partie 3 --- Exercices
+
+**Exercice 1.**
+
+1. $A=-4{,}5$ ; $B=-2$ ; $C=+1{,}5$ ; $D=+4{,}5$.
+2. $4{,}5$ ; $2$ ; $1{,}5$ ; $4{,}5$.
+3. $+4{,}5$ ; $+2$ ; $-1{,}5$ ; $-4{,}5$.
+4. A et D : leurs abscisses ont la même distance à zéro ($4{,}5$) et des signes contraires, elles sont donc opposées.
+5. E se place sur la graduation $-3$ ; F se place à mi-chemin entre $+2$ et $+3$.
+
+**Exercice 2.**
+
+| Nombre relatif | $-3{,}5$ | $+7$ | $-12{,}4$ | $0$ | $+0{,}8$ | $-100$ |
+|:--|:--:|:--:|:--:|:--:|:--:|:--:|
+| Distance à zéro | $3{,}5$ | $7$ | $12{,}4$ | $0$ | $0{,}8$ | $100$ |
+| Opposé | $+3{,}5$ | $-7$ | $+12{,}4$ | $0$ | $-0{,}8$ | $+100$ |
+
+**Exercice 3.** a. $-(7+8)=-15$ ; b. $+(3{,}5+6{,}2)=+9{,}7$ ; c. $-(12+4{,}7)=-16{,}7$ ; d. $-(0{,}8+0{,}9)=-1{,}7$ ; e. $+(15{,}3+2{,}7)=+18$ ; f. $-(21{,}6+8{,}4)=-30$.
+
+**Exercice 4.** a. $+(9-4)=+5$ ; b. $-(13-5)=-8$ ; c. $-(7{,}5-2{,}5)=-5$ ; d. $0$ (ce sont deux nombres opposés) ; e. $+(9-1{,}2)=+7{,}8$ ; f. $-(3{,}9-0{,}7)=-3{,}2$.
+
+**Exercice 5.**
+
+a. $(+5)+(-12)=-(12-5)=-7$
+b. $(-9)+(-4)=-(9+4)=-13$
+c. $(+7)+(+3)=+(7+3)=+10$
+d. $(-6{,}5)+(+2{,}5)=-(6{,}5-2{,}5)=-4$
+e. $(-8)+(+14)=+(14-8)=+6$
+f. $(+1{,}3)+(-4{,}8)=-(4{,}8-1{,}3)=-3{,}5$
+
+**Exercice 6.**
+
+1. a. $9-14=-5$ ; b. $-3-8=-11$ ; c. $4{,}5+2{,}5=7$ ; d. $-7+2=-5$ ; e. $6{,}2-9{,}2=-3$ ; f. $-1{,}5-3{,}5=-5$.
+2. $-6+11=(-6)+(+11)=+5$ ; $3-8=(+3)-(+8)=(+3)+(-8)=-5$ ; $-2{,}5-4=(-2{,}5)+(-4)=-6{,}5$.
+
+**Exercice 7.**
+
+a. $A=(-7-5)+(12+3)=-12+15=3$
+b. $B=(4{,}5+2{,}5)+(-8-1)=7-9=-2$
+c. $C=(-13+13)+(6-6)=0$
+d. $D=(-2{,}7-4{,}3)+(9+1)=-7+10=3$
+e. $E=(-5{,}5-4{,}5-2)+12=-12+12=0$
+f. $F=(-1{,}25-0{,}75-6)+3=-8+3=-5$
+
+**Exercice 8.** a. $+5$ ; b. $-5$ ; c. $-7$ ; d. $-8$ (car $(-3)-(-8)=-3+8=+5$) ; e. $+4$ ; f. $-6{,}5$.
+
+**Exercice 9.**
+
+1. a. $(+5{,}5)-(-7)=5{,}5+7=12{,}5$ : la température a augmenté de $12{,}5\ ^\circ$C. b. $5{,}5-9{,}5=-4$ : il fait $-4\ ^\circ$C.
+2. $-18{,}5+6{,}5=-12$, puis $-12-12=-24$ : le plongeur se trouve à l'altitude \mbox{$-24$~m}.
+3. $-45{,}60+120=+74{,}40$, puis $74{,}40-90{,}50=-16{,}10$ : le solde est de \mbox{$-16{,}10$~€}.
+4. $-323-(-356)=-323+356=33$ : il avait $33$ ans.
+
+**Exercice 10.**
+
+a. **Vrai** : on garde le signe commun $-$ et on additionne les distances à zéro, le résultat est donc négatif.
+b. **Faux** : $(-3)+(-4)=-7$, or $-7$ est plus petit que $-3$ et que $-4$.
+c. **Faux** : $(-2)-(-7)=-2+7=+5$, qui est positif.
+d. **Vrai** : soustraire revient à ajouter l'opposé, et l'opposé d'un nombre négatif est un nombre positif.
+e. **Vrai** : c'est une distance, elle ne peut donc pas être négative.
+
+**Exercice 11.** Base : $-4$ ; $+7$ ; $-2$ ; $+5$. Deuxième rangée : $+3$ ; $+5$ ; $+3$. Troisième rangée : $+8$ ; $+8$. Sommet : $+16$.
+
+*Pour aller plus loin :* avec l'ordre $+7$ ; $-4$ ; $+5$ ; $-2$, on obtient $+3$ ; $+1$ ; $+3$, puis $+4$ ; $+4$, et le sommet vaut $+8$. Le sommet a donc changé : en notant $a$, $b$, $c$, $d$ les nombres de la base, il vaut $a+3b+3c+d$. Les deux nombres placés au milieu comptent trois fois, ceux des extrémités une seule fois.
+
+:::
