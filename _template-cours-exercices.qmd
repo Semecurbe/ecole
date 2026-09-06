@@ -1,0 +1,567 @@
+---
+# =====================================================================
+#  TEMPLATE — cours + feuille d'exercices
+#  Variante de _template-exercices.qmd : une partie « Cours » a été
+#  ajoutée juste avant les exercices.
+#  Pour créer une nouvelle feuille :
+#     cp _template-cours-exercices.qmd mon-chapitre-4e.qmd
+#  puis adapter le titre, le sous-titre et le contenu.
+#  Compilation :  quarto render mon-chapitre-4e.qmd
+# =====================================================================
+title: "Cours et exercices : TITRE DU THÈME"
+subtitle: "Chapitre N --- NOM DU CHAPITRE --- Classe de 4^e^"
+corrige: true   # passer à false pour imprimer la feuille SANS le corrigé
+cours: true     # passer à false pour imprimer la feuille SANS la partie cours
+                # (dans ce cas, renuméroter les titres de parties à la main)
+format:
+  pdf:
+    documentclass: article
+    papersize: a4
+    fontsize: 11pt
+    pdf-engine: pdflatex   # babel-français : espaces insécables avant ? ! ; :
+    number-sections: false
+    geometry:
+      - top=17mm
+      - bottom=18mm
+      - left=17mm
+      - right=17mm
+    include-in-header:
+      text: |
+        % babel chargé ici (et non via lang: fr) pour bénéficier de la
+        % typographie française : espaces insécables avant ? ! ; : et « »
+        \usepackage[french]{babel}
+        \usepackage{amsmath,amssymb}
+        \usepackage{enumitem}
+        \usepackage{multicol}
+        \usepackage{tikz}
+        \usepackage{xcolor}
+        \usepackage{titlesec}
+        \usepackage{titling}
+        \usepackage[most]{tcolorbox}
+
+        % bloc de titre compact
+        \setlength{\droptitle}{-16mm}
+        \posttitle{\par\end{center}\vspace{-6mm}}
+
+        \definecolor{ctitre}{HTML}{B22222}
+        \definecolor{csous}{HTML}{1F4E79}
+
+        \titleformat{\section}{\normalfont\large\bfseries\color{ctitre}}{\thesection}{0.5em}{}
+        \titleformat{\subsection}{\normalfont\normalsize\bfseries\color{csous}}{\thesubsection}{0.5em}{}
+        \titlespacing*{\section}{0pt}{2.2ex plus 1ex minus .2ex}{1.2ex plus .2ex}
+        \titlespacing*{\subsection}{0pt}{2.4ex plus 1ex minus .2ex}{1ex plus .2ex}
+
+        \setlist[enumerate]{itemsep=0.4em, topsep=0.35em}
+        \setlist[itemize]{itemsep=0.3em, topsep=0.3em}
+        \setlength{\columnsep}{8mm}
+
+        % espace de réponse laissé à l'élève (modifier la valeur pour aérer plus ou moins)
+        \newcommand{\rep}[1][12mm]{\par\vspace{#1}}
+
+        % ---------------------------------------------------------------
+        %  Boîtes de la partie COURS
+        %  Usage :  \begin{boitedef}[Définition : les opposés] ... \end{boitedef}
+        %  L'argument optionnel remplace le titre par défaut.
+        % ---------------------------------------------------------------
+        \definecolor{cdef}{HTML}{1F4E79}   % bleu   — définitions
+        \definecolor{cprop}{HTML}{B22222}  % rouge  — propriétés et règles
+        \definecolor{cmeth}{HTML}{1F7A4D}  % vert   — méthodes
+        \definecolor{cexo}{HTML}{6B5B95}   % violet — exemples et remarques
+
+        \tcbset{boitecours/.style={
+          enhanced, breakable, boxrule=0.6pt, arc=1.2mm,
+          fonttitle=\bfseries, coltitle=white,
+          left=2.6mm, right=2.6mm, top=1.8mm, bottom=1.8mm,
+          before skip=3.2mm, after skip=3.2mm}}
+
+        \newtcolorbox{boitedef}[1][Définition]%
+          {boitecours, colback=cdef!5, colframe=cdef, title={#1}}
+        \newtcolorbox{boiteprop}[1][Propriété]%
+          {boitecours, colback=cprop!5, colframe=cprop, title={#1}}
+        \newtcolorbox{boitemeth}[1][Méthode]%
+          {boitecours, colback=cmeth!5, colframe=cmeth, title={#1}}
+        \newtcolorbox{boiteex}[1][Exemple]%
+          {boitecours, colback=white, colframe=cexo!70, coltitle=cexo,
+           colbacktitle=white, title={#1}}
+        % encadré « à retenir » sans barre de titre
+        \newtcolorbox{boiteretenir}%
+          {boitecours, colback=ctitre!4, colframe=ctitre, sharp corners=downhill}
+---
+
+<!-- =================================================================
+     EN-TÊTE ÉLÈVE — à garder tel quel
+     ================================================================= -->
+
+```{=latex}
+\noindent\textbf{Nom :} \hrulefill\ \textbf{Prénom :} \hrulefill\ \textbf{Classe :} \hrulefill
+
+\vspace{1.5mm}
+\noindent{\small\itshape Difficulté : $\star$ application directe du cours, $\star\star$ il faut réfléchir, $\star\star\star$ pour aller plus loin.}
+
+\vspace{1.5mm}\hrule
+```
+
+<!-- =================================================================
+     PARTIE 1 — questions de cours
+     Une liste numérotée ; \rep[Xmm] laisse X mm de blanc pour écrire.
+     ================================================================= -->
+
+# Partie 1 --- Questions de cours
+
+*Répondre par des phrases complètes, sans regarder le cours.*
+
+1. Question de vocabulaire : comment appelle-t-on … ?
+   \rep[8mm]
+
+2. Donner la définition de **NOTION**.
+   \rep[10mm]
+
+3. Énoncer la règle permettant de …, puis l'illustrer par un exemple.
+   \rep[10mm]
+
+4. Question d'application immédiate sur $\dots$
+   \rep[7mm]
+
+{{< pagebreak >}}
+
+<!-- =================================================================
+     PARTIE 2 — QCM
+     Le groupe \parskip=3.6mm aère les items ; l'ajuster si le QCM
+     est plus court ou plus long. Adapter aussi le nombre de colonnes
+     du tableau de réponses (une par question) et le « / 12 ».
+     ================================================================= -->
+
+# Partie 2 --- QCM : teste tes réflexes
+
+*Une seule réponse est correcte par question. Cocher la bonne case. Durée conseillée : 10 minutes.*
+
+```{=latex}
+\begingroup\setlength{\parskip}{3.6mm}
+```
+
+**1.** Énoncé de la question :\
+$\square$ **a.** $\dots$ $\qquad$ $\square$ **b.** $\dots$ $\qquad$ $\square$ **c.** $\dots$ $\qquad$ $\square$ **d.** $\dots$
+
+**2.** Énoncé de la question :\
+$\square$ **a.** $\dots$ $\qquad$ $\square$ **b.** $\dots$ $\qquad$ $\square$ **c.** $\dots$ $\qquad$ $\square$ **d.** $\dots$
+
+**3.** Énoncé de la question :\
+$\square$ **a.** $\dots$ $\qquad$ $\square$ **b.** $\dots$ $\qquad$ $\square$ **c.** $\dots$ $\qquad$ $\square$ **d.** $\dots$
+
+**4.** Énoncé de la question :\
+$\square$ **a.** $\dots$ $\qquad$ $\square$ **b.** $\dots$ $\qquad$ $\square$ **c.** $\dots$ $\qquad$ $\square$ **d.** $\dots$
+
+```{=latex}
+\endgroup
+\vspace{6mm}
+\begin{center}
+\small
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Question} & 1 & 2 & 3 & 4 \\ \hline
+\textbf{Réponse}  & & & & \\[3mm] \hline
+\end{tabular}
+\end{center}
+
+\vspace{3mm}
+\begin{center}\textbf{Score : \makebox[2.5cm]{\dotfill} / 4}\end{center}
+```
+
+{{< pagebreak >}}
+
+<!-- =================================================================
+     PARTIE 3 — COURS  (nouveauté de ce template)
+     Tout ce bloc n'apparaît que si `cours: true` dans l'en-tête.
+
+     Quatre boîtes sont disponibles :
+       \begin{boitedef}   ... \end{boitedef}    bleu   — définitions
+       \begin{boiteprop}  ... \end{boiteprop}   rouge  — propriétés, règles
+       \begin{boitemeth}  ... \end{boitemeth}   vert   — méthodes, étapes
+       \begin{boiteex}    ... \end{boiteex}     violet — exemples, remarques
+       \begin{boiteretenir} ... \end{boiteretenir}     — résumé sans titre
+     Chacune accepte un titre personnalisé entre crochets, par exemple
+       \begin{boitedef}[Définition : nombres opposés]
+     Comme pour \begin{multicols}, on ouvre la boîte dans un bloc
+     ```{=latex}, on écrit le contenu en markdown, puis on la referme
+     dans un second bloc ```{=latex}.
+     ================================================================= -->
+
+::: {.content-visible when-meta="cours"}
+
+# Partie 3 --- Cours
+
+## 1. Vocabulaire et définitions
+
+```{=latex}
+\begin{boitedef}[Définition : NOTION 1]
+```
+
+On appelle **NOTION 1** … .
+
+On note $\dots$ et on lit « $\dots$ ».
+
+```{=latex}
+\end{boitedef}
+```
+
+```{=latex}
+\begin{boiteex}
+```
+
+$\dots$ est un $\dots$ ; en revanche $\dots$ n'en est pas un car $\dots$
+
+```{=latex}
+\end{boiteex}
+```
+
+<!-- Une figure TikZ peut illustrer la définition (ici : droite graduée) -->
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[x=1.15cm]
+  \draw[->, thick] (-5.7,0) -- (5.9,0);
+  \foreach \x in {-5.5,-5,...,5.5} {\draw (\x,0.09) -- (\x,-0.09);}
+  \foreach \x in {-5,...,5} {\draw[thick] (\x,0.17) -- (\x,-0.17) node[below=1pt] {\small $\x$};}
+  \node[above=3pt] at (0,0) {\small O};
+\end{tikzpicture}
+\end{center}
+```
+
+## 2. Règles et propriétés
+
+```{=latex}
+\begin{boiteprop}[Propriété : RÈGLE 1]
+```
+
+Si $\dots$, alors $\dots$
+
+```{=latex}
+\end{boiteprop}
+```
+
+```{=latex}
+\begin{boiteprop}[Règle : RÈGLE 2]
+```
+
+Pour $\dots$ :
+
+* si $\dots$, on $\dots$ ;
+* si $\dots$, on $\dots$ .
+
+```{=latex}
+\end{boiteprop}
+```
+
+```{=latex}
+\begin{boiteex}[Exemples]
+\begin{multicols}{2}
+```
+
+* $\dots = \dots$
+* $\dots = \dots$
+* $\dots = \dots$
+* $\dots = \dots$
+
+```{=latex}
+\end{multicols}
+\end{boiteex}
+```
+
+## 3. Méthode
+
+```{=latex}
+\begin{boitemeth}[Méthode : comment $\dots$ ?]
+```
+
+1. **Étape 1.** Repérer $\dots$
+2. **Étape 2.** Appliquer la règle $\dots$
+3. **Étape 3.** Vérifier $\dots$
+
+```{=latex}
+\end{boitemeth}
+```
+
+```{=latex}
+\begin{boiteex}[Exemple rédigé]
+```
+
+Calculer $\dots$
+
+$$
+\begin{aligned}
+\dots &= \dots && \text{(étape 1 : \dots)}\\
+      &= \dots && \text{(étape 2 : \dots)}\\
+      &= \dots && \text{(étape 3 : \dots)}
+\end{aligned}
+$$
+
+```{=latex}
+\end{boiteex}
+```
+
+## 4. À retenir
+
+```{=latex}
+\begin{boiteretenir}
+```
+
+* **Point clé 1 :** $\dots$
+* **Point clé 2 :** $\dots$
+* **Piège à éviter :** $\dots$
+
+```{=latex}
+\end{boiteretenir}
+```
+
+:::
+
+{{< pagebreak >}}
+
+# Partie 4 --- Exercices
+
+<!-- =================================================================
+     MODÈLE A — exercice avec une figure TikZ (ici : droite graduée)
+     x=1.15cm règle l'échelle horizontale.
+     \foreach \p/\n in {position/nom, ...} place les points.
+     ================================================================= -->
+
+## Exercice 1 --- Titre de l'exercice $\star$
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[x=1.15cm]
+  \draw[->, thick] (-5.7,0) -- (5.9,0);
+  \foreach \x in {-5.5,-5,...,5.5} {\draw (\x,0.09) -- (\x,-0.09);}
+  \foreach \x in {-5,...,5} {\draw[thick] (\x,0.17) -- (\x,-0.17) node[below=1pt] {\small $\x$};}
+  \foreach \p/\n in {-4.5/A, -2/B, 1.5/C, 4.5/D} {
+    \fill (\p,0) circle (2.2pt);
+    \node[above=3pt] at (\p,0) {\small $\n$};
+  }
+  \node[above=3pt] at (0,0) {\small O};
+\end{tikzpicture}
+\end{center}
+```
+
+1. Première consigne.
+2. Deuxième consigne.
+3. Troisième consigne.
+
+\rep[8mm]
+
+<!-- =================================================================
+     MODÈLE B — exercice avec un tableau à compléter
+     Une colonne « c » par valeur ; \\[4mm] donne la hauteur des
+     lignes vides où l'élève écrit.
+     ================================================================= -->
+
+## Exercice 2 --- Tableau à compléter $\star$
+
+Recopier et compléter le tableau suivant.
+
+```{=latex}
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+\textbf{Nombre} & $\dots$ & $\dots$ & $\dots$ & $\dots$ & $\dots$ & $\dots$ \\ \hline
+\textbf{Ligne 1} & & & & & & \\[4mm] \hline
+\textbf{Ligne 2} & & & & & & \\[4mm] \hline
+\end{tabular}
+\end{center}
+```
+
+<!-- =================================================================
+     MODÈLE C — liste de calculs sur deux colonnes
+     C'est le modèle le plus courant : 6 items a. … f. en multicols,
+     puis un \rep pour la place de la rédaction.
+     ================================================================= -->
+
+## Exercice 3 --- Série de calculs $\star$
+
+Calculer en détaillant comme dans le cours, par exemple $\dots$
+
+```{=latex}
+\begin{multicols}{2}
+```
+
+a. $\dots$
+b. $\dots$
+c. $\dots$
+d. $\dots$
+e. $\dots$
+f. $\dots$
+
+```{=latex}
+\end{multicols}
+```
+
+\rep[34mm]
+
+<!-- =================================================================
+     MODÈLE D — exercice en plusieurs questions numérotées
+     ================================================================= -->
+
+## Exercice 4 --- Exercice en deux temps $\star\star$
+
+**1.** Première consigne.
+
+```{=latex}
+\begin{multicols}{2}
+```
+
+a. $\dots$
+b. $\dots$
+c. $\dots$
+d. $\dots$
+
+```{=latex}
+\end{multicols}
+```
+
+\rep[40mm]
+
+**2.** Seconde consigne, avec une liste d'expressions centrée sur une ligne.
+
+```{=latex}
+\begin{center}
+$\dots$ \qquad\qquad $\dots$ \qquad\qquad $\dots$
+\end{center}
+```
+
+\rep[30mm]
+
+{{< pagebreak >}}
+
+<!-- =================================================================
+     MODÈLE E — problèmes rédigés
+     \mbox{...} empêche une grandeur d'être coupée en fin de ligne.
+     ================================================================= -->
+
+## Exercice 5 --- Problèmes $\star\star$
+
+1. **Contexte 1.** Énoncé du problème, avec une grandeur \mbox{$12$~m} par exemple.
+   a. Première question.
+   b. Seconde question.
+
+2. **Contexte 2.** Énoncé du problème.
+
+3. **Contexte 3.** Énoncé du problème.
+
+\rep[55mm]
+
+<!-- =================================================================
+     MODÈLE F — vrai / faux
+     ================================================================= -->
+
+## Exercice 6 --- Vrai ou faux $\star\star\star$
+
+Pour chaque affirmation, répondre par **vrai** ou **faux**, puis justifier : par une phrase si c'est vrai, par un contre-exemple si c'est faux.
+
+a. Affirmation 1.
+b. Affirmation 2.
+c. Affirmation 3.
+d. Affirmation 4.
+
+\rep[30mm]
+
+<!-- =================================================================
+     MODÈLE G — figure de type « grille de cases » (pyramide additive)
+     Les cases vides `{}` sont à compléter par l'élève.
+     ================================================================= -->
+
+## Exercice 7 --- Exercice de recherche $\star\star\star$
+
+Règle du jeu / consigne de la construction.
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[every node/.style={draw, minimum width=1.9cm, minimum height=0.9cm, align=center}]
+  \node at (0,0) {$\dots$};
+  \node at (2,0) {$\dots$};
+  \node at (4,0) {$\dots$};
+  \node at (6,0) {$\dots$};
+  \node at (1,1) {};
+  \node at (3,1) {};
+  \node at (5,1) {};
+  \node at (2,2) {};
+  \node at (4,2) {};
+  \node at (3,3) {};
+\end{tikzpicture}
+\end{center}
+```
+
+**Pour aller plus loin.** Question d'ouverture.
+
+\rep[55mm]
+
+<!-- =================================================================
+     CORRIGÉ
+     Tout ce bloc n'apparaît que si `corrige: true` dans l'en-tête.
+     Mettre `corrige: false` pour sortir la version élève.
+     ================================================================= -->
+
+::: {.content-visible when-meta="corrige"}
+
+{{< pagebreak >}}
+
+# Corrigé
+
+## Partie 1 --- Questions de cours
+
+1. Réponse attendue.
+2. Réponse attendue.
+3. Réponse attendue.
+4. Réponse attendue.
+
+## Partie 2 --- QCM
+
+```{=latex}
+\begin{center}
+\small
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Question} & 1 & 2 & 3 & 4 \\ \hline
+\textbf{Réponse}  & a & b & c & d \\ \hline
+\end{tabular}
+\end{center}
+```
+
+## Partie 4 --- Exercices
+
+**Exercice 1.**
+
+1. Réponse.
+2. Réponse.
+3. Réponse.
+
+**Exercice 2.** (tableau de correction en markdown, plus léger qu'un tableau LaTeX)
+
+| Nombre | $\dots$ | $\dots$ | $\dots$ |
+|:--|:--:|:--:|:--:|
+| Ligne 1 | | | |
+| Ligne 2 | | | |
+
+**Exercice 3.** a. $\dots$ ; b. $\dots$ ; c. $\dots$ ; d. $\dots$ ; e. $\dots$ ; f. $\dots$
+
+**Exercice 4.**
+
+1. a. $\dots$ ; b. $\dots$ ; c. $\dots$ ; d. $\dots$
+2. $\dots$
+
+**Exercice 5.**
+
+1. a. Réponse rédigée. b. Réponse rédigée.
+2. Réponse rédigée.
+3. Réponse rédigée.
+
+**Exercice 6.**
+
+a. **Vrai** : justification.
+b. **Faux** : contre-exemple.
+c. **Faux** : contre-exemple.
+d. **Vrai** : justification.
+
+**Exercice 7.** Solution de la construction.
+
+*Pour aller plus loin :* explication.
+
+:::

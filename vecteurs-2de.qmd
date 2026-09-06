@@ -1,0 +1,696 @@
+---
+# =====================================================================
+#  Leçon + feuille d'exercices — Vecteurs (classe de 2de)
+#  Créé à partir de _template-cours-exercices.qmd
+#  Compilation :  quarto render vecteurs-2de.qmd
+# =====================================================================
+title: "Cours et exercices : les vecteurs"
+subtitle: "Chapitre 8 --- Translations, vecteurs et coordonnées --- Classe de 2^de^"
+corrige: true   # passer à false pour imprimer la feuille SANS le corrigé
+cours: true     # passer à false pour imprimer la feuille SANS la partie cours
+                # (dans ce cas, renuméroter les titres de parties à la main)
+format:
+  pdf:
+    documentclass: article
+    papersize: a4
+    fontsize: 11pt
+    pdf-engine: pdflatex   # babel-français : espaces insécables avant ? ! ; :
+    number-sections: false
+    geometry:
+      - top=17mm
+      - bottom=18mm
+      - left=17mm
+      - right=17mm
+    include-in-header:
+      text: |
+        % babel chargé ici (et non via lang: fr) pour bénéficier de la
+        % typographie française : espaces insécables avant ? ! ; : et « »
+        \usepackage[french]{babel}
+        \usepackage{amsmath,amssymb}
+        \usepackage{enumitem}
+        \usepackage{multicol}
+        \usepackage{tikz}
+        \usepackage{xcolor}
+        \usepackage{titlesec}
+        \usepackage{titling}
+        \usepackage[most]{tcolorbox}
+
+        % bloc de titre compact
+        \setlength{\droptitle}{-16mm}
+        \posttitle{\par\end{center}\vspace{-6mm}}
+
+        \definecolor{ctitre}{HTML}{B22222}
+        \definecolor{csous}{HTML}{1F4E79}
+
+        \titleformat{\section}{\normalfont\large\bfseries\color{ctitre}}{\thesection}{0.5em}{}
+        \titleformat{\subsection}{\normalfont\normalsize\bfseries\color{csous}}{\thesubsection}{0.5em}{}
+        \titlespacing*{\section}{0pt}{2.2ex plus 1ex minus .2ex}{1.2ex plus .2ex}
+        \titlespacing*{\subsection}{0pt}{2.4ex plus 1ex minus .2ex}{1ex plus .2ex}
+
+        \setlist[enumerate]{itemsep=0.4em, topsep=0.35em}
+        \setlist[itemize]{itemsep=0.3em, topsep=0.3em}
+        \setlength{\columnsep}{8mm}
+
+        % espace de réponse laissé à l'élève
+        \newcommand{\rep}[1][12mm]{\par\vspace{#1}}
+
+        % notation vectorielle :  $\vv{AB}$ , $\vv{u}$
+        \newcommand{\vv}[1]{\overrightarrow{#1}}
+        \newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+
+        % ---------------------------------------------------------------
+        %  Boîtes de la partie COURS
+        % ---------------------------------------------------------------
+        \definecolor{cdef}{HTML}{1F4E79}   % bleu   — définitions
+        \definecolor{cprop}{HTML}{B22222}  % rouge  — propriétés et règles
+        \definecolor{cmeth}{HTML}{1F7A4D}  % vert   — méthodes
+        \definecolor{cexo}{HTML}{6B5B95}   % violet — exemples et remarques
+
+        \tcbset{boitecours/.style={
+          enhanced, breakable, boxrule=0.6pt, arc=1.2mm,
+          fonttitle=\bfseries, coltitle=white,
+          left=2.6mm, right=2.6mm, top=1.8mm, bottom=1.8mm,
+          before skip=3.2mm, after skip=3.2mm}}
+
+        \newtcolorbox{boitedef}[1][Définition]%
+          {boitecours, colback=cdef!5, colframe=cdef, title={#1}}
+        \newtcolorbox{boiteprop}[1][Propriété]%
+          {boitecours, colback=cprop!5, colframe=cprop, title={#1}}
+        \newtcolorbox{boitemeth}[1][Méthode]%
+          {boitecours, colback=cmeth!5, colframe=cmeth, title={#1}}
+        \newtcolorbox{boiteex}[1][Exemple]%
+          {boitecours, colback=white, colframe=cexo!70, coltitle=cexo,
+           colbacktitle=white, title={#1}}
+        \newtcolorbox{boiteretenir}%
+          {boitecours, colback=ctitre!4, colframe=ctitre, sharp corners=downhill}
+---
+
+```{=latex}
+\noindent\textbf{Nom :} \hrulefill\ \textbf{Prénom :} \hrulefill\ \textbf{Classe :} \hrulefill
+
+\vspace{1.5mm}
+\noindent{\small\itshape Difficulté : $\star$ application directe du cours, $\star\star$ il faut réfléchir, $\star\star\star$ pour aller plus loin.}
+
+\vspace{1.5mm}\hrule
+```
+
+::: {.content-visible when-meta="cours"}
+
+# Partie 1 --- Cours
+
+## 1. Qu'est-ce qu'un vecteur ?
+
+```{=latex}
+\begin{boitedef}[Définition : vecteur]
+```
+
+Un **vecteur** est un objet mathématique qui décrit un déplacement du plan. Il est entièrement défini par **trois** éléments :
+
+* une **direction** : celle de la droite le long de laquelle on se déplace (son inclinaison) ;
+* un **sens** : l'un des deux sens de parcours possibles sur cette direction ;
+* une **longueur**, appelée **norme** du vecteur.
+
+On représente un vecteur par une **flèche** : la droite qui la porte donne la direction, la pointe donne le sens, et sa longueur donne la norme.
+
+```{=latex}
+\end{boitedef}
+```
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[scale=0.9, every node/.style={font=\small}]
+  % (a) même direction, même sens, normes différentes
+  \draw[gray!45, dashed] (-0.2,0.6) -- (3.6,0.6);
+  \draw[gray!45, dashed] (-0.2,0) -- (3.6,0);
+  \draw[->, very thick, csous] (0,0.6) -- (3,0.6);
+  \draw[->, very thick, csous] (0,0) -- (1.6,0);
+  \node[align=center] at (1.7,-0.85) {même direction, même sens,\\[-1mm] normes différentes};
+  % (b) même direction, sens contraires
+  \begin{scope}[xshift=5.2cm]
+    \draw[gray!45, dashed] (-0.2,0.6) -- (3.2,0.6);
+    \draw[gray!45, dashed] (-0.2,0) -- (3.2,0);
+    \draw[->, very thick, cmeth] (0,0.6) -- (2.6,0.6);
+    \draw[->, very thick, cmeth] (2.6,0) -- (0,0);
+    \node[align=center] at (1.3,-0.85) {même direction,\\[-1mm] sens contraires};
+  \end{scope}
+  % (c) directions différentes
+  \begin{scope}[xshift=10cm]
+    \draw[->, very thick, ctitre] (0,0) -- (2.4,0.2);
+    \draw[->, very thick, ctitre] (0.2,-0.2) -- (1.6,1.4);
+    \node[align=center] at (1.2,-0.85) {directions\\[-1mm] différentes};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+```
+
+```{=latex}
+\begin{boiteex}[Attention au vocabulaire]
+```
+
+En mathématiques, **direction** et **sens** ne veulent pas dire la même chose : « la direction de la droite $(AB)$ » désigne l'inclinaison de cette droite, et deux vecteurs de même direction peuvent aller dans des sens contraires. Dans le langage courant, on dit au contraire « aller dans la direction de la gare », ce qui correspond au **sens** en mathématiques.
+
+```{=latex}
+\end{boiteex}
+```
+
+```{=latex}
+\begin{boitedef}[Notations]
+```
+
+Un vecteur se note $\vv{u}$, $\vv{v}$… ou bien à l'aide de deux points : $\vv{AB}$ est le vecteur d'**origine** $A$ et d'**extrémité** $B$.
+
+Sa norme se note $\norme{\vv{u}}$, ou $\norme{\vv{AB}}$ : c'est un nombre positif, et $\norme{\vv{AB}}=AB$, la longueur du segment $[AB]$.
+
+```{=latex}
+\end{boitedef}
+```
+
+## 2. Translation et vecteur
+
+```{=latex}
+\begin{boitedef}[Définition : translation et vecteur]
+```
+
+Soient $A$ et $B$ deux points du plan. La **translation qui transforme $A$ en $B$** associe à tout point $M$ l'unique point $M'$ tel que $ABM'M$ soit un parallélogramme (éventuellement aplati).
+
+Cette translation est entièrement décrite par le **vecteur** $\vv{AB}$, dont les trois caractéristiques sont ici : la **direction** de la droite $(AB)$, le **sens** de $A$ vers $B$ et la **norme** $\norme{\vv{AB}}=AB$.
+
+Un vecteur décrit donc un déplacement du plan tout entier : tous les points sont déplacés de la même façon.
+
+```{=latex}
+\end{boitedef}
+```
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  \coordinate (A) at (0,0);   \coordinate (B) at (2.6,1.1);
+  \coordinate (M) at (0.9,2.1); \coordinate (Mp) at (3.5,3.2);
+  \draw[dashed, gray] (A)--(M) (B)--(Mp);
+  \draw[->, very thick, csous] (A)--(B);
+  \draw[->, very thick, csous] (M)--(Mp);
+  \foreach \p/\n/\pos in {A/A/below, B/B/below, M/M/left, Mp/M'/right}
+    {\fill (\p) circle (2pt); \node[\pos=2pt] at (\p) {$\n$};}
+  \node[csous] at (1.3,0.15) {$\vv{AB}$};
+  \node[csous] at (2.2,2.95) {$\vv{MM'}$};
+  \node[align=left, text width=4.6cm, font=\small] at (7.6,1.5)
+    {$M'$ est l'image de $M$ par la translation de vecteur $\vv{AB}$ :\\[1mm] \hspace*{1em}$\vv{MM'}=\vv{AB}$.};
+\end{tikzpicture}
+\end{center}
+```
+
+```{=latex}
+\begin{boitedef}[Définition : vecteurs égaux]
+```
+
+Deux vecteurs sont **égaux** lorsqu'ils ont la même direction, le même sens et la même norme.
+
+$$\vv{AB}=\vv{CD} \iff ABDC \text{ est un parallélogramme} \iff [AD] \text{ et } [BC] \text{ ont le même milieu.}$$
+
+Un même vecteur admet donc une infinité de **représentants** : pour tout point $M$ du plan, il existe un unique point $N$ tel que $\vv{MN}=\vv{AB}$.
+
+```{=latex}
+\end{boitedef}
+```
+
+```{=latex}
+\begin{boiteex}[Remarques]
+```
+
+* Le **vecteur nul** $\vv{0}=\vv{AA}$ a une norme égale à $0$ ; il n'a ni direction ni sens. La translation de vecteur nul ne déplace aucun point.
+* Attention à l'ordre des lettres : $\vv{BA}$ est l'**opposé** de $\vv{AB}$, on note $\vv{BA}=-\vv{AB}$. Ces deux vecteurs ont la même direction et la même norme, mais des sens contraires.
+
+```{=latex}
+\end{boiteex}
+```
+
+## 3. Somme de deux vecteurs
+
+```{=latex}
+\begin{boiteprop}[Relation de Chasles]
+```
+
+Pour tous points $A$, $B$ et $C$ du plan :
+$$\vv{AB}+\vv{BC}=\vv{AC}.$$
+
+Enchaîner deux translations revient à effectuer une seule translation, dont le vecteur est la somme des deux vecteurs.
+
+```{=latex}
+\end{boiteprop}
+```
+
+```{=latex}
+\begin{boiteprop}[Règle du parallélogramme]
+```
+
+Si $ABDC$ est un parallélogramme, alors $\vv{AB}+\vv{AC}=\vv{AD}$ : la somme de deux vecteurs de même origine est portée par la diagonale issue de cette origine.
+
+```{=latex}
+\end{boiteprop}
+```
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+  % Chasles
+  \coordinate (A) at (0,0); \coordinate (B) at (2.2,0.9); \coordinate (C) at (3.6,-0.4);
+  \draw[->, thick, csous] (A)--(B); \draw[->, thick, csous] (B)--(C);
+  \draw[->, very thick, ctitre] (A)--(C);
+  \foreach \p/\n/\pos in {A/A/left, B/B/above, C/C/right}
+    {\fill (\p) circle (1.8pt); \node[\pos=2pt] at (\p) {$\n$};}
+  \node at (1.8,-0.6) {\small $\vv{AB}+\vv{BC}=\vv{AC}$};
+  % parallélogramme
+  \begin{scope}[xshift=7cm, yshift=-0.5cm]
+    \coordinate (P) at (0,0); \coordinate (Q) at (2.4,0.3);
+    \coordinate (R) at (0.8,1.9); \coordinate (S) at (3.2,2.2);
+    \draw[dashed, gray] (Q)--(S)--(R);
+    \draw[->, thick, csous] (P)--(Q); \draw[->, thick, csous] (P)--(R);
+    \draw[->, very thick, ctitre] (P)--(S);
+    \foreach \p/\n/\pos in {P/A/below left, Q/B/below right, R/C/above left, S/D/right}
+      {\fill (\p) circle (1.8pt); \node[\pos=2pt] at (\p) {$\n$};}
+    \node at (1.6,-0.75) {\small $\vv{AB}+\vv{AC}=\vv{AD}$};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+```
+
+```{=latex}
+\begin{boiteex}[Exemples de simplification]
+\begin{multicols}{2}
+```
+
+* $\vv{MN}+\vv{NP}=\vv{MP}$
+* $\vv{AB}+\vv{BC}+\vv{CD}=\vv{AD}$
+* $\vv{AB}-\vv{AC}=\vv{AB}+\vv{CA}=\vv{CB}$
+* $\vv{AB}+\vv{BA}=\vv{AA}=\vv{0}$
+
+```{=latex}
+\end{multicols}
+\end{boiteex}
+```
+
+## 4. Coordonnées d'un vecteur
+
+Dans toute cette partie, le plan est muni d'un repère $(O\,;I,J)$.
+
+```{=latex}
+\begin{boiteprop}[Coordonnées d'un vecteur]
+```
+
+Si $A(x_A\,;y_A)$ et $B(x_B\,;y_B)$, alors
+$$\vv{AB}\begin{pmatrix} x_B-x_A \\ y_B-y_A \end{pmatrix}
+\qquad\text{(coordonnées de l'extrémité \emph{moins} celles de l'origine).}$$
+
+Soient $\vv{u}\,(x\,;y)$ et $\vv{v}\,(x'\,;y')$ deux vecteurs et $k$ un nombre réel :
+
+* $\vv{u}=\vv{v} \iff x=x' \text{ et } y=y'$ ;
+* $\vv{u}+\vv{v}$ a pour coordonnées $(x+x'\,;\,y+y')$ ;
+* $k\,\vv{u}$ a pour coordonnées $(kx\,;\,ky)$.
+
+Si le repère est **orthonormé** : $\norme{\vv{u}}=\sqrt{x^2+y^2}$.
+
+```{=latex}
+\end{boiteprop}
+```
+
+```{=latex}
+\begin{boiteex}[Exemple]
+```
+
+Avec $A(-2\,;3)$ et $B(4\,;1)$ : $\vv{AB}\,(4-(-2)\,;\,1-3)$, c'est-à-dire $\vv{AB}\,(6\,;-2)$.
+
+En repère orthonormé, $\norme{\vv{AB}}=\sqrt{6^2+(-2)^2}=\sqrt{40}=2\sqrt{10}\approx 6{,}3$.
+
+```{=latex}
+\end{boiteex}
+```
+
+```{=latex}
+\begin{boiteprop}[Milieu d'un segment]
+```
+
+$I$ est le milieu de $[AB]$ $\iff$ $\vv{AI}=\vv{IB}$, et alors
+$I\left(\dfrac{x_A+x_B}{2}\,;\,\dfrac{y_A+y_B}{2}\right)$.
+
+```{=latex}
+\end{boiteprop}
+```
+
+## 5. Colinéarité
+
+```{=latex}
+\begin{boitedef}[Définition : vecteurs colinéaires]
+```
+
+Deux vecteurs $\vv{u}$ et $\vv{v}$ sont **colinéaires** s'il existe un réel $k$ tel que $\vv{v}=k\,\vv{u}$ (ou $\vv{u}=k\,\vv{v}$). Autrement dit, ils ont la même direction. Le vecteur nul est colinéaire à tout vecteur.
+
+```{=latex}
+\end{boitedef}
+```
+
+```{=latex}
+\begin{boiteprop}[Critère de colinéarité]
+```
+
+Soient $\vv{u}\,(x\,;y)$ et $\vv{v}\,(x'\,;y')$. On appelle **déterminant** de $\vv{u}$ et $\vv{v}$ le nombre $xy'-yx'$. Alors :
+$$\vv{u} \text{ et } \vv{v} \text{ sont colinéaires} \iff xy'-yx'=0.$$
+
+```{=latex}
+\end{boiteprop}
+```
+
+```{=latex}
+\begin{boitemeth}[Méthode : prouver un alignement ou un parallélisme]
+```
+
+1. **Choisir deux vecteurs** adaptés : $\vv{AB}$ et $\vv{AC}$ pour un alignement de $A$, $B$, $C$ ; $\vv{AB}$ et $\vv{CD}$ pour le parallélisme de $(AB)$ et $(CD)$.
+2. **Calculer leurs coordonnées** avec la formule « extrémité moins origine ».
+3. **Calculer le déterminant** $xy'-yx'$.
+4. **Conclure** : s'il est nul, les vecteurs sont colinéaires, donc les points sont alignés (ou les droites sont parallèles) ; sinon, ils ne le sont pas.
+
+```{=latex}
+\end{boitemeth}
+```
+
+```{=latex}
+\begin{boiteex}[Exemple rédigé]
+```
+
+Les points $A(1\,;2)$, $B(4\,;3)$ et $C(10\,;5)$ sont-ils alignés ?
+
+$$
+\begin{aligned}
+\vv{AB}\,(4-1\,;\,3-2) &= \vv{AB}\,(3\,;1), & \vv{AC}\,(10-1\,;\,5-2) &= \vv{AC}\,(9\,;3),\\
+\det\left(\vv{AB},\vv{AC}\right) &= 3\times 3-1\times 9 = 0. & &
+\end{aligned}
+$$
+
+Le déterminant est nul, donc $\vv{AB}$ et $\vv{AC}$ sont colinéaires : les points $A$, $B$ et $C$ sont alignés.
+
+```{=latex}
+\end{boiteex}
+```
+
+## 6. À retenir
+
+```{=latex}
+\begin{boiteretenir}
+```
+
+* Un vecteur est défini par **trois** éléments : une **direction**, un **sens** et une **norme** (sa longueur).
+* $\vv{AB}=\vv{CD}$ $\iff$ $ABDC$ est un parallélogramme (attention à l'ordre des sommets).
+* **Chasles :** $\vv{AB}+\vv{BC}=\vv{AC}$ ; **opposé :** $\vv{BA}=-\vv{AB}$.
+* **Coordonnées :** $\vv{AB}\,(x_B-x_A\,;\,y_B-y_A)$ ; **norme** (repère orthonormé) : $\sqrt{x^2+y^2}$.
+* **Colinéarité :** $xy'-yx'=0$ ; c'est l'outil pour l'alignement et le parallélisme.
+* **Piège à éviter :** deux vecteurs de même norme ne sont pas forcément égaux ; il faut aussi la même direction **et** le même sens.
+
+```{=latex}
+\end{boiteretenir}
+```
+
+:::
+
+# Partie 2 --- Questions de cours
+
+*Répondre par des phrases complètes, sans regarder la partie 1.*
+
+1. Un vecteur non nul est caractérisé par trois éléments : lesquels ?
+   \rep[16mm]
+
+2. Donner la définition de deux vecteurs égaux, puis expliquer ce que signifie $\vv{AB}=\vv{CD}$ pour le quadrilatère $ABDC$.
+   \rep[22mm]
+
+3. Énoncer la relation de Chasles, puis l'illustrer par un exemple de son choix.
+   \rep[22mm]
+
+4. Dans un repère, $A(x_A\,;y_A)$ et $B(x_B\,;y_B)$. Donner les coordonnées de $\vv{AB}$, puis les calculer pour $A(-1\,;3)$ et $B(4\,;1)$.
+   \rep[22mm]
+
+{{< pagebreak >}}
+
+# Partie 3 --- QCM : teste tes réflexes
+
+*Une seule réponse est correcte par question. Cocher la bonne case. Durée conseillée : 10 minutes. Le plan est muni d'un repère orthonormé.*
+
+```{=latex}
+\begingroup\setlength{\parskip}{3.6mm}
+```
+
+**1.** $A(2\,;-3)$ et $B(-1\,;5)$. Les coordonnées de $\vv{AB}$ sont :\
+$\square$ **a.** $(3\,;-8)$ $\qquad$ $\square$ **b.** $(-3\,;8)$ $\qquad$ $\square$ **c.** $(1\,;2)$ $\qquad$ $\square$ **d.** $(-3\,;-8)$
+
+**2.** $ABCD$ est un parallélogramme si et seulement si :\
+$\square$ **a.** $\vv{AB}=\vv{DC}$ $\qquad$ $\square$ **b.** $\vv{AB}=\vv{CD}$ $\qquad$ $\square$ **c.** $\vv{AC}=\vv{BD}$ $\qquad$ $\square$ **d.** $\vv{AB}=\vv{BC}$
+
+**3.** La norme du vecteur $\vv{u}\,(3\,;-4)$ vaut :\
+$\square$ **a.** $-1$ $\qquad$ $\square$ **b.** $5$ $\qquad$ $\square$ **c.** $7$ $\qquad$ $\square$ **d.** $25$
+
+**4.** Pour tous points $A$, $B$, $C$, la somme $\vv{AB}+\vv{BC}$ est égale à :\
+$\square$ **a.** $\vv{AC}$ $\qquad$ $\square$ **b.** $\vv{CA}$ $\qquad$ $\square$ **c.** $\vv{BB}$ $\qquad$ $\square$ **d.** $\vv{AB}$
+
+**5.** Les vecteurs $\vv{u}\,(2\,;-1)$ et $\vv{v}\,(-6\,;3)$ sont :\
+$\square$ **a.** non colinéaires $\qquad$ $\square$ **b.** colinéaires et de même sens $\qquad$ $\square$ **c.** colinéaires et de sens contraires $\qquad$ $\square$ **d.** égaux
+
+**6.** $I$ est le milieu de $[AB]$ si et seulement si :\
+$\square$ **a.** $\vv{AI}=\vv{IB}$ $\qquad$ $\square$ **b.** $\vv{AI}=\vv{BI}$ $\qquad$ $\square$ **c.** $\vv{IA}=\vv{IB}$ $\qquad$ $\square$ **d.** $\vv{AB}=\vv{IB}$
+
+```{=latex}
+\endgroup
+\vspace{6mm}
+\begin{center}
+\small
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+\textbf{Question} & 1 & 2 & 3 & 4 & 5 & 6 \\ \hline
+\textbf{Réponse}  & & & & & & \\[3mm] \hline
+\end{tabular}
+\end{center}
+
+\vspace{3mm}
+\begin{center}\textbf{Score : \makebox[2.5cm]{\dotfill} / 6}\end{center}
+```
+
+{{< pagebreak >}}
+
+# Partie 4 --- Exercices
+
+## Exercice 1 --- Lire des vecteurs sur un quadrillage $\star$
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[scale=0.72]
+  \draw[step=1, gray!35, very thin] (0,0) grid (10,6);
+  \draw[->, thick] (0,0) -- (10.5,0) node[right] {$x$};
+  \draw[->, thick] (0,0) -- (0,6.5) node[above] {$y$};
+  \foreach \x in {1,...,10} {\draw (\x,0.1)--(\x,-0.1) node[below] {\scriptsize $\x$};}
+  \foreach \y in {1,...,6} {\draw (0.1,\y)--(-0.1,\y) node[left] {\scriptsize $\y$};}
+  \node[below left] at (0,0) {\scriptsize $O$};
+  \foreach \x/\y/\n in {1/1/A, 4/3/B, 2/4/C, 5/6/D, 6/1/E, 8/5/F}
+    {\fill[ctitre] (\x,\y) circle (2.4pt); \node[above right=0pt, ctitre] at (\x,\y) {$\n$};}
+\end{tikzpicture}
+\end{center}
+```
+
+1. Lire les coordonnées des vecteurs $\vv{AB}$, $\vv{CD}$, $\vv{EF}$ et $\vv{AC}$.
+2. Parmi ces vecteurs, deux sont égaux : lesquels ? Que peut-on en déduire pour le quadrilatère $ABDC$ ?
+3. Placer sur la figure le point $G$ tel que $\vv{EG}=\vv{AB}$, puis donner ses coordonnées.
+
+\rep[22mm]
+
+## Exercice 2 --- Calculs de coordonnées $\star$
+
+Dans un repère orthonormé, on donne $A(-2\,;3)$, $B(4\,;1)$, $C(0\,;-5)$ et $D(-3\,;-1)$.
+
+Calculer les coordonnées des vecteurs suivants.
+
+```{=latex}
+\begin{multicols}{2}
+```
+
+a. $\vv{AB}$
+b. $\vv{BC}$
+c. $\vv{CA}$
+d. $\vv{AB}+\vv{CD}$
+e. $2\,\vv{AB}$
+f. $\norme{\vv{AB}}$
+
+```{=latex}
+\end{multicols}
+```
+
+\rep[38mm]
+
+## Exercice 3 --- Simplifier avec la relation de Chasles $\star$
+
+Simplifier chaque écriture pour obtenir un seul vecteur.
+
+```{=latex}
+\begin{multicols}{2}
+```
+
+a. $\vv{AB}+\vv{BC}$
+b. $\vv{MN}+\vv{NP}+\vv{PQ}$
+c. $\vv{AB}-\vv{AC}$
+d. $\vv{BA}+\vv{AC}$
+e. $\vv{AB}+\vv{CD}+\vv{BC}$
+f. $\vv{AB}+\vv{BA}$
+
+```{=latex}
+\end{multicols}
+```
+
+\rep[34mm]
+
+{{< pagebreak >}}
+
+## Exercice 4 --- Construire un parallélogramme $\star\star$
+
+Dans un repère, on donne $A(-1\,;2)$, $B(3\,;4)$ et $C(5\,;-1)$.
+
+**1.** Déterminer les coordonnées du point $D$ tel que $ABCD$ soit un parallélogramme.
+
+\rep[32mm]
+
+**2.** Vérifier le résultat en montrant que les diagonales $[AC]$ et $[BD]$ ont le même milieu.
+
+\rep[32mm]
+
+## Exercice 5 --- Alignement et parallélisme $\star\star$
+
+Dans un repère, on donne $A(1\,;2)$, $B(4\,;3)$, $C(10\,;5)$, $D(2\,;-1)$ et $E(5\,;0)$.
+
+1. Les points $A$, $B$ et $C$ sont-ils alignés ? Justifier par un calcul de déterminant.
+2. Les droites $(AB)$ et $(DE)$ sont-elles parallèles ? Justifier.
+3. Les vecteurs $\vv{u}\,(2\,;-3)$ et $\vv{v}\,(-6\,;9)$ sont-ils colinéaires ? Si oui, préciser le réel $k$ tel que $\vv{v}=k\,\vv{u}$ et le sens relatif des deux vecteurs.
+
+\rep[45mm]
+
+{{< pagebreak >}}
+
+## Exercice 6 --- Problème : le trajet du drone $\star\star$
+
+Un drone décolle du point $O$, origine d'un repère orthonormé dont l'unité vaut \mbox{$100$~m}. Il effectue successivement trois déplacements, décrits par les vecteurs
+$$\vv{u}\,(3\,;2), \qquad \vv{v}\,(-1\,;4), \qquad \vv{w}\,(2\,;-5).$$
+
+1. Déterminer les coordonnées de sa position finale $P$.
+2. Donner les coordonnées du vecteur $\vv{OP}$, puis celles du vecteur du trajet de retour direct de $P$ vers $O$.
+3. Calculer la distance $OP$ en mètres, arrondie au mètre près.
+4. Le drone aurait-il parcouru la même distance en allant directement de $O$ à $P$ ? Justifier sans calcul supplémentaire précis.
+
+\rep[55mm]
+
+## Exercice 7 --- Vrai ou faux $\star\star\star$
+
+Pour chaque affirmation, répondre par **vrai** ou **faux**, puis justifier : par une phrase si c'est vrai, par un contre-exemple si c'est faux.
+
+a. Si $\norme{\vv{AB}}=\norme{\vv{CD}}$, alors $\vv{AB}=\vv{CD}$.
+b. Si $\vv{AB}=\vv{CD}$, alors $ABDC$ est un parallélogramme.
+c. Deux vecteurs colinéaires ont toujours le même sens.
+d. Le vecteur nul est colinéaire à tout vecteur du plan.
+
+\rep[38mm]
+
+{{< pagebreak >}}
+
+## Exercice 8 --- Exercice de recherche $\star\star\star$
+
+$ABCD$ est un parallélogramme. $I$ est le milieu de $[AB]$ et $J$ est le milieu de $[DC]$.
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+  \coordinate (A) at (0,0); \coordinate (B) at (3.4,0);
+  \coordinate (D) at (1.2,2); \coordinate (C) at (4.6,2);
+  \draw[thick] (A)--(B)--(C)--(D)--cycle;
+  \coordinate (I) at (1.7,0); \coordinate (J) at (2.9,2);
+  \draw[dashed, csous] (I)--(J);
+  \foreach \p/\n/\pos in {A/A/below left, B/B/below right, C/C/above right, D/D/above left, I/I/below, J/J/above}
+    {\fill (\p) circle (2pt); \node[\pos=2pt] at (\p) {$\n$};}
+\end{tikzpicture}
+\end{center}
+```
+
+1. Exprimer $\vv{AI}$ en fonction de $\vv{AB}$, puis $\vv{DJ}$ en fonction de $\vv{DC}$.
+2. En déduire que $\vv{AI}=\vv{DJ}$.
+3. Quelle est alors la nature du quadrilatère $ADJI$ ?
+
+**Pour aller plus loin.** Démontrer que $\vv{IJ}=\vv{AD}$.
+
+\rep[55mm]
+
+::: {.content-visible when-meta="corrige"}
+
+{{< pagebreak >}}
+
+# Corrigé
+
+## Partie 2 --- Questions de cours
+
+1. Un vecteur non nul est caractérisé par sa **direction**, son **sens** et sa **norme**.
+2. Deux vecteurs sont égaux lorsqu'ils ont la même direction, le même sens et la même norme. $\vv{AB}=\vv{CD}$ signifie que $ABDC$ est un parallélogramme, c'est-à-dire que $[AD]$ et $[BC]$ ont le même milieu.
+3. Relation de Chasles : pour tous points $A$, $B$, $C$, $\vv{AB}+\vv{BC}=\vv{AC}$. Exemple : $\vv{MN}+\vv{NP}=\vv{MP}$.
+4. $\vv{AB}\,(x_B-x_A\,;\,y_B-y_A)$. Ici $\vv{AB}\,(4-(-1)\,;\,1-3)$, donc $\vv{AB}\,(5\,;-2)$.
+
+## Partie 3 --- QCM
+
+```{=latex}
+\begin{center}
+\small
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+\textbf{Question} & 1 & 2 & 3 & 4 & 5 & 6 \\ \hline
+\textbf{Réponse}  & b & a & b & a & c & a \\ \hline
+\end{tabular}
+\end{center}
+```
+
+*Justifications rapides :* **1.** $(-1-2\,;5-(-3))=(-3\,;8)$. **3.** $\sqrt{3^2+(-4)^2}=\sqrt{25}=5$. **5.** $\vv{v}=-3\,\vv{u}$, donc colinéaires de sens contraires. **6.** $\vv{AI}=\vv{IB}$ traduit que $I$ est entre $A$ et $B$ à égale distance.
+
+## Partie 4 --- Exercices
+
+**Exercice 1.**
+
+1. $\vv{AB}\,(3\,;2)$ ; $\vv{CD}\,(3\,;2)$ ; $\vv{EF}\,(2\,;4)$ ; $\vv{AC}\,(1\,;3)$.
+2. $\vv{AB}=\vv{CD}$ (mêmes coordonnées) : le quadrilatère $ABDC$ est donc un parallélogramme.
+3. $\vv{EG}=\vv{AB}$ donne $G(6+3\,;1+2)$, soit $G(9\,;3)$.
+
+**Exercice 2.**
+
+a. $\vv{AB}\,(6\,;-2)$ ; b. $\vv{BC}\,(-4\,;-6)$ ; c. $\vv{CA}\,(-2\,;8)$ ; d. $\vv{CD}\,(-3\,;4)$ donc $\vv{AB}+\vv{CD}\,(3\,;2)$ ; e. $2\,\vv{AB}\,(12\,;-4)$ ; f. $\norme{\vv{AB}}=\sqrt{36+4}=\sqrt{40}=2\sqrt{10}\approx 6{,}32$.
+
+**Exercice 3.** a. $\vv{AC}$ ; b. $\vv{MQ}$ ; c. $\vv{AB}-\vv{AC}=\vv{AB}+\vv{CA}=\vv{CB}$ ; d. $\vv{BC}$ ; e. $\vv{AB}+\vv{BC}+\vv{CD}=\vv{AD}$ ; f. $\vv{AA}=\vv{0}$.
+
+**Exercice 4.**
+
+1. $ABCD$ est un parallélogramme $\iff \vv{AB}=\vv{DC}$. Avec $\vv{AB}\,(4\,;2)$ et $D(x\,;y)$ : $\vv{DC}\,(5-x\,;-1-y)$, d'où $5-x=4$ et $-1-y=2$, soit $D(1\,;-3)$.
+2. Milieu de $[AC]$ : $\left(\dfrac{-1+5}{2}\,;\,\dfrac{2-1}{2}\right)=(2\,;0{,}5)$. Milieu de $[BD]$ : $\left(\dfrac{3+1}{2}\,;\,\dfrac{4-3}{2}\right)=(2\,;0{,}5)$. Les diagonales ont le même milieu : c'est bien un parallélogramme.
+
+**Exercice 5.**
+
+1. $\vv{AB}\,(3\,;1)$ et $\vv{AC}\,(9\,;3)$ ; $\det=3\times3-1\times9=0$ : les vecteurs sont colinéaires, donc $A$, $B$, $C$ sont alignés.
+2. $\vv{DE}\,(3\,;1)=\vv{AB}$ : les vecteurs sont colinéaires ($\det=3\times1-1\times3=0$), donc $(AB)\parallel(DE)$.
+3. $\det=2\times9-(-3)\times(-6)=18-18=0$ : ils sont colinéaires, avec $\vv{v}=-3\,\vv{u}$. Comme $k=-3<0$, ils sont de **sens contraires**.
+
+**Exercice 6.**
+
+1. $\vv{OP}=\vv{u}+\vv{v}+\vv{w}\,(3-1+2\,;\,2+4-5)$, donc $\vv{OP}\,(4\,;1)$ et $P(4\,;1)$.
+2. $\vv{OP}\,(4\,;1)$ et $\vv{PO}=-\vv{OP}\,(-4\,;-1)$.
+3. $OP=\sqrt{4^2+1^2}=\sqrt{17}\approx 4{,}123$ unités, soit environ \mbox{$412$~m}.
+4. Non : le trajet réel est la somme des longueurs des trois déplacements, qui est strictement plus grande que la distance directe $OP$ (inégalité triangulaire) — les trois vecteurs n'ayant pas la même direction.
+
+**Exercice 7.**
+
+a. **Faux** : $\vv{AB}$ et $\vv{BA}$ ont la même norme mais des sens contraires, donc ils ne sont pas égaux.
+b. **Vrai** : $\vv{AB}=\vv{CD}$ signifie que $[AD]$ et $[BC]$ ont le même milieu, donc $ABDC$ est un parallélogramme.
+c. **Faux** : $\vv{u}\,(1\,;0)$ et $\vv{v}\,(-2\,;0)$ sont colinéaires ($\vv{v}=-2\,\vv{u}$) mais de sens contraires.
+d. **Vrai** : $\vv{0}=0\times\vv{u}$ pour tout vecteur $\vv{u}$, donc le déterminant est toujours nul.
+
+**Exercice 8.**
+
+1. $I$ milieu de $[AB]$ donne $\vv{AI}=\dfrac{1}{2}\vv{AB}$ ; $J$ milieu de $[DC]$ donne $\vv{DJ}=\dfrac{1}{2}\vv{DC}$.
+2. $ABCD$ est un parallélogramme, donc $\vv{AB}=\vv{DC}$. En multipliant par $\dfrac{1}{2}$ : $\vv{AI}=\vv{DJ}$.
+3. $\vv{AI}=\vv{DJ}$ signifie que $ADJI$ est un parallélogramme.
+
+*Pour aller plus loin :* $\vv{IJ}=\vv{IA}+\vv{AD}+\vv{DJ}$ (Chasles). Or $\vv{DJ}=\vv{AI}=-\vv{IA}$, donc $\vv{IJ}=\vv{IA}+\vv{AD}-\vv{IA}=\vv{AD}$.
+
+:::
