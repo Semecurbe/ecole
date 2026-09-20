@@ -63,7 +63,7 @@ format:
         \definecolor{cexo}{HTML}{6B5B95}   % violet — exemples et remarques
 
         \tcbset{boitecours/.style={
-          enhanced, breakable, boxrule=0.6pt, arc=1.2mm,
+          enhanced, boxrule=0.6pt, arc=1.2mm,   % pas de « breakable » : un encart n'est jamais coupé
           fonttitle=\bfseries, coltitle=white,
           left=2.6mm, right=2.6mm, top=1.8mm, bottom=1.8mm,
           before skip=3.2mm, after skip=3.2mm}}
@@ -254,6 +254,8 @@ Lorsque les points $A$, $B$, $C$, $D$ sont alignés, on dit que le parallélogra
 \end{tikzpicture}
 \end{center}
 ```
+
+{{< pagebreak >}}
 
 # II. Opérations sur les vecteurs
 
