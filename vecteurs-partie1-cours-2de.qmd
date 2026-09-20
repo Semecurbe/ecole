@@ -1,0 +1,624 @@
+---
+# =====================================================================
+#  Cours — Chapitre 1 : Vecteurs (partie 1), classe de 2de
+#  Réécriture corrigée de « Chapitre 1 Vecteurs-partie1_vf5.pdf »
+#  à partir de la partie cours de _template-cours-exercices.qmd
+#  Compilation :  quarto render vecteurs-partie1-cours-2de.qmd
+# =====================================================================
+title: "Chapitre 1 --- Vecteurs (partie 1)"
+subtitle: "Cours --- Classe de 2^de^"
+format:
+  pdf:
+    documentclass: article
+    papersize: a4
+    fontsize: 11pt
+    pdf-engine: pdflatex   # babel-français : espaces insécables avant ? ! ; :
+    number-sections: false
+    geometry:
+      - top=17mm
+      - bottom=18mm
+      - left=17mm
+      - right=17mm
+    include-in-header:
+      text: |
+        % babel chargé ici (et non via lang: fr) pour bénéficier de la
+        % typographie française : espaces insécables avant ? ! ; : et « »
+        \usepackage[french]{babel}
+        \usepackage{amsmath,amssymb}
+        \usepackage{enumitem}
+        \usepackage{multicol}
+        \usepackage{tikz}
+        \usetikzlibrary{arrows.meta}
+        \usepackage{xcolor}
+        \usepackage{titlesec}
+        \usepackage{titling}
+        \usepackage[most]{tcolorbox}
+
+        % bloc de titre compact
+        \setlength{\droptitle}{-16mm}
+        \posttitle{\par\end{center}\vspace{-6mm}}
+
+        \definecolor{ctitre}{HTML}{B22222}
+        \definecolor{csous}{HTML}{1F4E79}
+
+        \titleformat{\section}{\normalfont\large\bfseries\color{ctitre}}{\thesection}{0.5em}{}
+        \titleformat{\subsection}{\normalfont\normalsize\bfseries\color{csous}}{\thesubsection}{0.5em}{}
+        \titlespacing*{\section}{0pt}{2.2ex plus 1ex minus .2ex}{1.2ex plus .2ex}
+        \titlespacing*{\subsection}{0pt}{2.4ex plus 1ex minus .2ex}{1ex plus .2ex}
+
+        \setlist[enumerate]{itemsep=0.4em, topsep=0.35em}
+        \setlist[itemize]{itemsep=0.3em, topsep=0.3em}
+        \setlength{\columnsep}{8mm}
+
+        % notation vectorielle :  $\vv{AB}$ , $\vv{u}$ , $\norme{\vv{u}}$
+        \newcommand{\vv}[1]{\overrightarrow{#1}}
+        \newcommand{\norme}[1]{\left\lVert #1 \right\rVert}
+
+        % ---------------------------------------------------------------
+        %  Boîtes de la partie COURS
+        % ---------------------------------------------------------------
+        \definecolor{cdef}{HTML}{1F4E79}   % bleu   — définitions
+        \definecolor{cprop}{HTML}{B22222}  % rouge  — propriétés et règles
+        \definecolor{cmeth}{HTML}{1F7A4D}  % vert   — méthodes
+        \definecolor{cexo}{HTML}{6B5B95}   % violet — exemples et remarques
+
+        \tcbset{boitecours/.style={
+          enhanced, breakable, boxrule=0.6pt, arc=1.2mm,
+          fonttitle=\bfseries, coltitle=white,
+          left=2.6mm, right=2.6mm, top=1.8mm, bottom=1.8mm,
+          before skip=3.2mm, after skip=3.2mm}}
+
+        \newtcolorbox{boitedef}[1][Définition]%
+          {boitecours, colback=cdef!5, colframe=cdef, title={#1}}
+        \newtcolorbox{boiteprop}[1][Propriété]%
+          {boitecours, colback=cprop!5, colframe=cprop, title={#1}}
+        \newtcolorbox{boitemeth}[1][Méthode]%
+          {boitecours, colback=cmeth!5, colframe=cmeth, title={#1}}
+        \newtcolorbox{boiteex}[1][Exemple]%
+          {boitecours, colback=white, colframe=cexo!70, coltitle=cexo,
+           colbacktitle=white, title={#1}}
+        \newtcolorbox{boiteretenir}%
+          {boitecours, colback=ctitre!4, colframe=ctitre, sharp corners=downhill}
+
+        % styles TikZ communs aux figures
+        \tikzset{
+          vec/.style={->, >=Stealth, very thick},
+          grille/.style={gray!30, very thin},
+          pt/.style={circle, fill, inner sep=1.4pt}
+        }
+---
+
+# I. Notion de vecteur
+
+## 1. Vecteur
+
+```{=latex}
+\begin{boitedef}[Définition 1 : vecteur]
+```
+
+Soient $A$ et $B$ deux points distincts du plan.
+
+Le **vecteur $\vv{AB}$** est représenté par une flèche d'**origine** $A$ et d'**extrémité** $B$. Il est défini par :
+
+* sa **longueur** $AB$, appelée aussi **norme** du vecteur et notée $\norme{\vv{AB}}$ ;
+* sa **direction** : celle de la droite $(AB)$ ;
+* son **sens** : de l'origine $A$ vers l'extrémité $B$.
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+  \draw[vec, csous] (0,1.2) -- (3,0);
+  \node[pt] at (0,1.2) {}; \node[pt] at (3,0) {};
+  \node[above left] at (0,1.2) {$A$}; \node[below right] at (3,0) {$B$};
+  \node[csous, above right] at (1.6,0.65) {$\vv{AB}$};
+\end{tikzpicture}
+\end{center}
+```
+
+```{=latex}
+\end{boitedef}
+```
+
+```{=latex}
+\begin{boiteex}[Remarques]
+```
+
+* Le vecteur $\vv{AB}$ est aussi appelé **vecteur déplacement** de $A$ vers $B$ : il décrit le déplacement qui mène de $A$ à $B$.
+* **Attention ! Ne pas confondre sens et direction.** Une direction (celle d'une droite) contient deux sens de parcours opposés.
+
+```{=latex}
+\end{boiteex}
+```
+
+## 2. Vecteurs égaux, représentants d'un vecteur
+
+```{=latex}
+\begin{boitedef}[Définition 2 : vecteurs égaux]
+```
+
+Deux vecteurs sont **égaux** lorsqu'ils ont la **même longueur**, la **même direction** et le **même sens**.
+
+```{=latex}
+\end{boitedef}
+```
+
+```{=latex}
+\begin{boiteex}[Remarques]
+```
+
+* L'emplacement de la flèche dans le plan n'a pas d'importance : des déplacements partant de points d'origine différents peuvent correspondre au **même vecteur**. Il existe donc une infinité de vecteurs égaux à $\vv{AB}$.
+* Sur la figure 1, les vecteurs $\vv{AB}$, $\vv{CD}$, $\vv{EF}$ et $\vv{GH}$ sont égaux ; sur la figure 2, les vecteurs $\vv{MN}$, $\vv{OP}$ et $\vv{QR}$ sont égaux. On peut donc désigner tous ces vecteurs égaux par une **seule lettre** :
+$$\vv{AB}=\vv{CD}=\vv{EF}=\vv{GH}=\vv{u} \qquad\text{et}\qquad \vv{MN}=\vv{OP}=\vv{QR}=\vv{v}.$$
+* On dit que $\vv{AB}$, $\vv{CD}$, $\vv{EF}$, $\vv{GH}$ sont des **représentants** du vecteur $\vv{u}$, et que $\vv{MN}$, $\vv{OP}$, $\vv{QR}$ sont des représentants du vecteur $\vv{v}$.
+
+```{=latex}
+\end{boiteex}
+```
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[x=0.6cm, y=0.6cm]
+  % ---- Figure 1 : représentants de u = (2;1)
+  \draw[grille] (-4,-3) grid (5,4);
+  \draw[->] (-4,0) -- (5.3,0); \draw[->] (0,-3) -- (0,4.3);
+  \foreach \a/\b/\c/\d/\n/\m in {0/0/2/1/A/B, -3/1/-1/2/C/D, 1/2/3/3/E/F, -3/-3/-1/-2/G/H}{
+    \draw[vec, csous] (\a,\b) -- (\c,\d);
+    \node[pt] at (\a,\b) {}; \node[pt] at (\c,\d) {};
+    \node[below left, font=\scriptsize] at (\a,\b) {$\n$};
+    \node[above right, font=\scriptsize] at (\c,\d) {$\m$};
+  }
+  \draw[vec, ctitre] (2,-2) -- (4,-1); \node[ctitre, right, font=\small] at (4,-1.1) {$\vv{u}$};
+  \node[font=\small] at (0.5,-4) {Figure 1};
+  % ---- Figure 2 : représentants de v = (-3;-1)
+  \begin{scope}[xshift=7.4cm]
+    \draw[grille] (-4,-3) grid (5,4);
+    \draw[->] (-4,0) -- (5.3,0); \draw[->] (0,-3) -- (0,4.3);
+    \foreach \a/\b/\c/\d/\n/\m in {1/3/-2/2/M/N, 4/-1/1/-2/O/P, -1/-1/-4/-2/Q/R}{
+      \draw[vec, csous] (\a,\b) -- (\c,\d);
+      \node[pt] at (\a,\b) {}; \node[pt] at (\c,\d) {};
+      \node[above right, font=\scriptsize] at (\a,\b) {$\n$};
+      \node[below left, font=\scriptsize] at (\c,\d) {$\m$};
+    }
+    \draw[vec, ctitre] (4,3.5) -- (1,2.5); \node[ctitre, above, font=\small] at (2.5,3.1) {$\vv{v}$};
+    \node[font=\small] at (0.5,-4) {Figure 2};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+```
+
+```{=latex}
+\begin{boitedef}[Définition 3 : vecteur nul]
+```
+
+Si $A$ et $B$ sont **confondus**, il n'y a aucun déplacement pour aller de $A$ vers $B$ : on ne peut définir ni direction ni sens, mais la longueur $AB$ existe et vaut $0$.
+
+On parle alors du **vecteur nul**, noté $\vv{0}$. Pour tout point $A$ du plan : $\vv{AA}=\vv{0}$.
+
+```{=latex}
+\end{boitedef}
+```
+
+## 3. Vecteurs égaux et parallélogramme
+
+```{=latex}
+\begin{boiteex}[Rappel : le parallélogramme]
+```
+
+Si $ABCD$ est un quadrilatère (non croisé), les affirmations suivantes sont équivalentes :
+
+* $ABCD$ est un parallélogramme ;
+* les diagonales $[AC]$ et $[BD]$ se coupent en leur milieu ;
+* les côtés opposés de $ABCD$ sont parallèles deux à deux ;
+* deux côtés opposés de $ABCD$ sont parallèles **et** de même longueur.
+
+```{=latex}
+\end{boiteex}
+```
+
+```{=latex}
+\begin{boiteprop}[Propriété 1 : égalité de vecteurs et parallélogramme]
+```
+
+Soient $A$, $B$, $C$ et $D$ quatre points du plan. On a l'équivalence :
+$$\vv{AB}=\vv{CD} \iff ABDC \text{ est un parallélogramme (éventuellement aplati).}$$
+
+**Attention à l'ordre des lettres** : c'est le quadrilatère $ABDC$, et non $ABCD$.
+
+Lorsque les points $A$, $B$, $C$, $D$ sont alignés, on dit que le parallélogramme est **aplati** : ses diagonales $[AD]$ et $[BC]$ ont toujours le même milieu.
+
+```{=latex}
+\end{boiteprop}
+```
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  % parallélogramme ABDC
+  \coordinate (A) at (0,1.6); \coordinate (B) at (2.8,2.4);
+  \coordinate (C) at (1,0);   \coordinate (D) at (3.8,0.8);
+  \draw[thick] (A)--(C) (B)--(D);
+  \draw[dashed, gray] (A)--(D) (B)--(C);
+  \draw[vec, ctitre] (A)--(B); \draw[vec, ctitre] (C)--(D);
+  \foreach \p/\pos in {A/above left, B/above right, C/below left, D/below right}
+    {\node[pt] at (\p) {}; \node[\pos] at (\p) {$\p$};}
+  \node[font=\small] at (1.9,-0.9) {$\vv{AB}=\vv{CD}$ : $ABDC$ est un parallélogramme};
+  % parallélogramme aplati
+  \begin{scope}[xshift=7.4cm, yshift=0.4cm]
+    \draw[dashed, gray] (-0.4,-0.1) -- (5.4,1.35);
+    \coordinate (A) at (0,0); \coordinate (B) at (1.6,0.4);
+    \coordinate (C) at (2.6,0.65); \coordinate (D) at (4.2,1.05);
+    \draw[vec, ctitre] (A)--(B); \draw[vec, ctitre] (C)--(D);
+    \foreach \p in {A,B,C,D} {\node[pt] at (\p) {}; \node[above left=-1pt] at (\p) {$\p$};}
+    \node[font=\small, align=center] at (2.2,-0.9) {$\vv{AB}=\vv{CD}$ avec $A$, $B$, $C$, $D$ alignés :\\ parallélogramme aplati};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+```
+
+# II. Opérations sur les vecteurs
+
+## 1. Produit d'un vecteur par un nombre réel
+
+```{=latex}
+\begin{boitedef}[Définition 4 : produit d'un vecteur par un réel]
+```
+
+Soient $\vv{u}$ un vecteur non nul et $k$ un nombre réel non nul. Le vecteur $k\,\vv{u}$ est le vecteur :
+
+* de **même direction** que $\vv{u}$ ;
+* de **même sens** que $\vv{u}$ si $k>0$, de **sens contraire** si $k<0$ ;
+* de norme $\norme{k\,\vv{u}}=|k|\times\norme{\vv{u}}$.
+
+Si $\vv{u}=\vv{0}$ ou si $k=0$, le vecteur $k\,\vv{u}$ est le vecteur nul.
+
+```{=latex}
+\end{boitedef}
+```
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[x=0.8cm, y=0.8cm]
+  \draw[grille] (0,-0.5) grid (9,4.5);
+  \draw[vec, ctitre] (1,4) -- (3,4);   \node[ctitre, above, font=\small] at (2,4) {$\vv{u}$};
+  \draw[vec, csous]  (3,3) -- (1,3);   \node[csous, above, font=\small] at (2,3) {$-\vv{u}$};
+  \draw[vec, cmeth]  (1,2) -- (5,2);   \node[cmeth, above, font=\small] at (3,2) {$2\,\vv{u}$};
+  \draw[vec, cexo]   (1,1) -- (2,1);   \node[cexo, above, font=\small] at (1.5,1) {$0{,}5\,\vv{u}$};
+  \draw[vec, csous]  (8,0) -- (5,0);   \node[csous, above, font=\small] at (6.5,0) {$-1{,}5\,\vv{u}$};
+\end{tikzpicture}
+\end{center}
+```
+
+```{=latex}
+\begin{boiteex}[Exemple : le vecteur opposé]
+```
+
+L'**opposé** du vecteur $\vv{u}$ est le vecteur $(-1)\,\vv{u}$, noté $-\vv{u}$. Les vecteurs $\vv{u}$ et $-\vv{u}$ ont la même direction et la même norme, mais des sens contraires.
+
+En particulier, $\vv{BA}$ est l'opposé de $\vv{AB}$ : $\vv{BA}=-\vv{AB}$.
+
+```{=latex}
+\end{boiteex}
+```
+
+```{=latex}
+\begin{boitedef}[Définition 5 : vecteurs colinéaires]
+```
+
+Soient $\vv{u}$ et $\vv{v}$ deux vecteurs du plan.
+
+On dit que $\vv{u}$ et $\vv{v}$ sont **colinéaires** lorsqu'il existe un réel $k$ tel que $\vv{u}=k\,\vv{v}$ (ou tel que $\vv{v}=k\,\vv{u}$).
+
+```{=latex}
+\end{boitedef}
+```
+
+```{=latex}
+\begin{boiteex}[Exemples]
+```
+
+```{=latex}
+\begin{center}
+\begin{minipage}{0.55\linewidth}
+On considère la figure ci-contre.
+
+\medskip
+$\bullet$ Les vecteurs $\vv{u}$ et $\vv{v}$ sont colinéaires car $\vv{u}=-2\,\vv{v}$.
+
+\medskip
+$\bullet$ Les vecteurs $\vv{s}$ et $\vv{t}$ sont colinéaires car $\vv{t}=3\,\vv{s}$.
+\end{minipage}\hfill
+\begin{minipage}{0.4\linewidth}
+\centering
+\begin{tikzpicture}[x=0.8cm, y=0.8cm]
+  \draw[grille] (0,0) grid (5,5);
+  \draw[vec, black] (1,4) -- (1,3);  \node[left, font=\small] at (1,3.5) {$\vv{s}$};
+  \draw[vec, cmeth] (3,4.5) -- (3,1.5); \node[right, cmeth, font=\small] at (3,3) {$\vv{t}$};
+  \draw[vec, csous] (0.5,1) -- (2,1); \node[above, csous, font=\small] at (1.25,1) {$\vv{v}$};
+  \draw[vec, ctitre] (4.5,0.5) -- (1.5,0.5); \node[below, ctitre, font=\small] at (3,0.5) {$\vv{u}$};
+\end{tikzpicture}
+\end{minipage}
+\end{center}
+```
+
+```{=latex}
+\end{boiteex}
+```
+
+```{=latex}
+\begin{boiteprop}[Propriété 2 : caractérisation du milieu d'un segment]
+```
+
+Soient $A$, $B$ et $K$ trois points du plan.
+$$K \text{ est le milieu de } [AB] \iff \vv{AK}=\vv{KB} \iff \vv{AK}=\frac{1}{2}\,\vv{AB}.$$
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+  \coordinate (A) at (0,0); \coordinate (B) at (5,1.2); \coordinate (K) at (2.5,0.6);
+  \draw[vec, black] (A) -- (B);
+  \draw[vec, ctitre] (A) -- (K);
+  \foreach \p/\pos in {A/below left, B/above right, K/above} {\node[pt] at (\p) {}; \node[\pos] at (\p) {$\p$};}
+  \node[ctitre, below, font=\small] at (1.35,0.3) {$\vv{AK}$};
+  \node[below, font=\small] at (3.9,0.9) {$\vv{AB}$};
+\end{tikzpicture}
+\end{center}
+```
+
+```{=latex}
+\end{boiteprop}
+```
+
+```{=latex}
+\begin{boiteprop}[Propriété 3 : colinéarité, direction et parallélisme]
+```
+
+* Pour tout vecteur $\vv{u}$, on a $\vv{0}=0\,\vv{u}$ : le vecteur nul est colinéaire à tout vecteur.
+* Si $\vv{u}\neq\vv{0}$ et $\vv{v}\neq\vv{0}$ : $\;\vv{u}$ et $\vv{v}$ sont colinéaires $\iff$ $\vv{u}$ et $\vv{v}$ ont la **même direction**.
+* Si $A\neq B$ et $C\neq D$ : $\;\vv{AB}$ et $\vv{CD}$ sont colinéaires $\iff$ les droites $(AB)$ et $(CD)$ sont **parallèles**.
+
+```{=latex}
+\end{boiteprop}
+```
+
+```{=latex}
+\begin{boiteex}[Remarque]
+```
+
+En mathématiques, deux droites confondues sont un cas particulier de droites parallèles. Ainsi, si $A$, $B$, $C$, $D$ sont alignés, $\vv{AB}$ et $\vv{CD}$ sont bien colinéaires et $(AB)$, $(CD)$ sont bien parallèles (elles sont confondues).
+
+```{=latex}
+\end{boiteex}
+```
+
+## 2. Somme de deux vecteurs
+
+```{=latex}
+\begin{boitedef}[Définition 6 : somme de deux vecteurs]
+```
+
+Soient $\vv{u}$ et $\vv{v}$ deux vecteurs du plan. La **somme** $\vv{u}+\vv{v}$ est le vecteur obtenu en enchaînant les deux déplacements : on place les vecteurs **bout à bout** (l'origine d'un représentant de $\vv{v}$ à l'extrémité d'un représentant de $\vv{u}$), et $\vv{u}+\vv{v}$ va de l'origine du premier à l'extrémité du second.
+
+```{=latex}
+\end{boitedef}
+```
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[x=0.75cm, y=0.75cm]
+  % panneau 1 : u et v
+  \draw[grille] (0,0) grid (5,4);
+  \draw[vec, ctitre] (0.5,0.5) -- (3.5,1); \node[ctitre, below, font=\small] at (2,0.6) {$\vv{u}$};
+  \draw[vec, csous]  (1,2) -- (2.5,3.5);   \node[csous, left, font=\small] at (1.7,2.9) {$\vv{v}$};
+  % panneau 2 : u puis v
+  \begin{scope}[xshift=4.6cm]
+    \draw[grille] (0,0) grid (6,5);
+    \draw[vec, ctitre] (0.5,0.5) -- (3.5,1); \node[ctitre, below, font=\small] at (2,0.6) {$\vv{u}$};
+    \draw[vec, csous]  (3.5,1) -- (5,2.5);  \node[csous, right, font=\small] at (4.3,1.6) {$\vv{v}$};
+    \draw[vec, cmeth]  (0.5,0.5) -- (5,2.5); \node[cmeth, above left, font=\small] at (3,1.7) {$\vv{u}+\vv{v}$};
+  \end{scope}
+  % panneau 3 : v puis u (même résultat)
+  \begin{scope}[xshift=10cm]
+    \draw[grille] (0,0) grid (6,5);
+    \draw[vec, csous]  (0.5,0.5) -- (2,2);   \node[csous, left, font=\small] at (1.2,1.4) {$\vv{v}$};
+    \draw[vec, ctitre] (2,2) -- (5,2.5);     \node[ctitre, above, font=\small] at (3.5,2.4) {$\vv{u}$};
+    \draw[vec, cmeth]  (0.5,0.5) -- (5,2.5); \node[cmeth, below right, font=\small] at (3.2,1.3) {$\vv{v}+\vv{u}$};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+```
+
+```{=latex}
+\begin{boiteex}[Attention : erreur à ne pas faire]
+```
+
+```{=latex}
+\begin{center}
+\begin{minipage}{0.6\linewidth}
+Pour additionner deux vecteurs, il faut respecter l'\textbf{enchaînement des déplacements} : une extrémité suivie d'une origine.
+
+\medskip
+Placer les deux vecteurs \textbf{avec la même origine} (figure ci-contre) et relier leurs extrémités ne donne \textbf{pas} $\vv{u}+\vv{v}$ : le vecteur vert obtenu est en réalité $\vv{v}-\vv{u}$.
+\end{minipage}\hfill
+\begin{minipage}{0.36\linewidth}
+\centering
+\begin{tikzpicture}[x=0.7cm, y=0.7cm]
+  \draw[grille] (0,0) grid (5,4);
+  \draw[vec, ctitre] (0.5,0.5) -- (3.5,1);   \node[ctitre, below, font=\small] at (2,0.6) {$\vv{u}$};
+  \draw[vec, csous]  (0.5,0.5) -- (2,3);     \node[csous, left, font=\small] at (1.2,1.9) {$\vv{v}$};
+  \draw[vec, cmeth]  (3.5,1) -- (2,3);
+  \node[cmeth, right, font=\small] at (2.9,2.3) {$\vv{u}+\vv{v}$ ?};
+  \draw[ctitre, line width=1.2pt] (0.3,0.3) -- (5,4); \draw[ctitre, line width=1.2pt] (0.3,4) -- (5,0.3);
+\end{tikzpicture}
+\end{minipage}
+\end{center}
+```
+
+```{=latex}
+\end{boiteex}
+```
+
+```{=latex}
+\begin{boiteprop}[Propriété 4 : relation de Chasles]
+```
+
+Pour tous points $A$, $B$ et $C$ du plan :
+$$\vv{AB}+\vv{BC}=\vv{AC}.$$
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+  \coordinate (A) at (0,0); \coordinate (B) at (2,1.6); \coordinate (C) at (4.8,0.4);
+  \draw[vec, csous] (A) -- (B); \draw[vec, cmeth] (B) -- (C); \draw[vec, ctitre] (A) -- (C);
+  \foreach \p/\pos in {A/left, B/above, C/right} {\node[pt] at (\p) {}; \node[\pos] at (\p) {$\p$};}
+  \node[csous, above left, font=\small] at (1,0.8) {$\vv{AB}$};
+  \node[cmeth, above right, font=\small] at (3.4,1) {$\vv{BC}$};
+  \node[ctitre, below, font=\small] at (2.4,0.2) {$\vv{AC}$};
+\end{tikzpicture}
+\end{center}
+```
+
+```{=latex}
+\end{boiteprop}
+```
+
+```{=latex}
+\begin{boiteex}[Remarque : vecteurs et longueurs]
+```
+
+L'égalité $\vv{AB}+\vv{BC}=\vv{AC}$ porte sur des **vecteurs**. L'égalité des **longueurs** $AB+BC=AC$ est en général **fausse** : sur la figure ci-dessus, $AB+BC>AC$ (inégalité triangulaire). Elle n'est vraie que si $B$ appartient au segment $[AC]$.
+
+```{=latex}
+\end{boiteex}
+```
+
+```{=latex}
+\begin{boiteprop}[Propriété 5 : règle du parallélogramme]
+```
+
+Soient $A$, $B$ et $C$ trois points du plan. Il existe un **unique** point $D$ tel que $ABDC$ soit un parallélogramme, et ce point vérifie :
+$$\vv{AD}=\vv{AB}+\vv{AC}.$$
+
+Autrement dit, pour quatre points $A$, $B$, $C$, $D$ : $\;\vv{AB}+\vv{AC}=\vv{AD} \iff ABDC$ est un parallélogramme.
+
+La somme de deux vecteurs de même origine est portée par la **diagonale** issue de cette origine.
+
+```{=latex}
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+  \coordinate (A) at (0,0); \coordinate (B) at (3,0.5); \coordinate (C) at (1,1.9); \coordinate (D) at (4,2.4);
+  \draw[dashed, gray] (B) -- (D) -- (C);
+  \draw[vec, csous] (A) -- (B); \draw[vec, ctitre] (A) -- (C); \draw[vec, cmeth] (A) -- (D);
+  \foreach \p/\pos in {A/below left, B/below right, C/above left, D/above right} {\node[pt] at (\p) {}; \node[\pos] at (\p) {$\p$};}
+  \node[csous, below, font=\small] at (1.5,0.25) {$\vv{AB}$};
+  \node[ctitre, left, font=\small] at (0.5,1.05) {$\vv{AC}$};
+  \node[cmeth, above left, font=\small] at (2.6,1.5) {$\vv{AD}$};
+\end{tikzpicture}
+\end{center}
+```
+
+**Démonstration.** Si $ABDC$ est un parallélogramme, alors $\vv{AC}=\vv{BD}$ (propriété 1). Donc, d'après la relation de Chasles :
+$$\vv{AB}+\vv{AC}=\vv{AB}+\vv{BD}=\vv{AD}.$$
+
+```{=latex}
+\end{boiteprop}
+```
+
+```{=latex}
+\begin{boitemeth}[Méthode : construire le quatrième sommet d'un parallélogramme]
+```
+
+Pour construire le point $D$ tel que $ABDC$ soit un parallélogramme :
+
+1. tracer le représentant de $\vv{AC}$ d'origine $B$ (même longueur, même direction, même sens) ;
+2. son extrémité est le point $D$ : on a bien $\vv{BD}=\vv{AC}$, donc $ABDC$ est un parallélogramme.
+
+On peut aussi tracer le représentant de $\vv{AB}$ d'origine $C$ : on obtient le même point $D$.
+
+```{=latex}
+\end{boitemeth}
+```
+
+```{=latex}
+\begin{boiteprop}[Propriété 6 : règles de calcul]
+```
+
+Soient $\vv{u}$ et $\vv{v}$ deux vecteurs du plan, $a$ et $b$ deux nombres réels.
+
+* $\vv{u}+\vv{v}=\vv{v}+\vv{u}$ (la somme est commutative) et $\vv{u}+\vv{0}=\vv{u}$ ;
+* $(a+b)\,\vv{u}=a\,\vv{u}+b\,\vv{u}$ ;
+* $a\,(\vv{u}+\vv{v})=a\,\vv{u}+a\,\vv{v}$ ;
+* $a\,(b\,\vv{u})=(ab)\,\vv{u}$ ;
+* $a\,\vv{u}=\vv{0} \iff a=0 \text{ ou } \vv{u}=\vv{0}$.
+
+Ces règles sont cohérentes avec la définition du produit par un réel : $\vv{u}+\vv{u}=2\,\vv{u}$ et $\vv{u}+\vv{u}+\vv{u}=3\,\vv{u}$.
+
+```{=latex}
+\end{boiteprop}
+```
+
+## 3. Soustraction de deux vecteurs
+
+```{=latex}
+\begin{boitedef}[Définition 7 : différence de deux vecteurs]
+```
+
+**Soustraire** un vecteur, c'est **additionner son opposé** :
+$$\vv{u}-\vv{v}=\vv{u}+\left(-\vv{v}\right).$$
+
+Rappel : deux vecteurs opposés ont la même direction, la même longueur et des sens contraires ; en particulier $\vv{BA}=-\vv{AB}$.
+
+```{=latex}
+\end{boitedef}
+```
+
+```{=latex}
+\begin{boiteex}[Exemple rédigé]
+```
+
+Soient $A$, $B$ et $C$ trois points du plan. Simplifier $\vv{AB}-\vv{AC}$.
+
+$$
+\begin{aligned}
+\vv{AB}-\vv{AC} &= \vv{AB}+\left(-\vv{AC}\right) && \text{(définition de la soustraction)}\\
+                &= \vv{AB}+\vv{CA}               && \text{(opposé d'un vecteur : } -\vv{AC}=\vv{CA}\text{)}\\
+                &= \vv{CA}+\vv{AB}               && \text{(la somme est commutative)}\\
+                &= \vv{CB}                       && \text{(relation de Chasles)}
+\end{aligned}
+$$
+
+```{=latex}
+\end{boiteex}
+```
+
+```{=latex}
+\begin{boiteex}[Exemples de calculs]
+\begin{multicols}{2}
+```
+
+* $3\,(5\,\vv{u}+\vv{v})=15\,\vv{u}+3\,\vv{v}$
+* $-2\,(\vv{u}-4\,\vv{v})=-2\,\vv{u}+8\,\vv{v}$
+* $6\,\vv{u}-10\,\vv{u}=-4\,\vv{u}$
+* Si $12\,\vv{u}=\vv{0}$, alors $\vv{u}=\vv{0}$.
+
+```{=latex}
+\end{multicols}
+\end{boiteex}
+```
+
+## À retenir
+
+```{=latex}
+\begin{boiteretenir}
+```
+
+* Un vecteur est défini par une **direction**, un **sens** et une **norme** ; l'emplacement de la flèche n'a pas d'importance (représentants).
+* $\vv{AB}=\vv{CD} \iff ABDC$ est un parallélogramme (éventuellement aplati).
+* $k\,\vv{u}$ : même direction que $\vv{u}$, même sens si $k>0$, sens contraire si $k<0$, norme $|k|\,\norme{\vv{u}}$.
+* $\vv{u}$ et $\vv{v}$ **colinéaires** $\iff$ $\vv{u}=k\,\vv{v}$ ; pour $A\neq B$, $C\neq D$ : $\vv{AB}$, $\vv{CD}$ colinéaires $\iff (AB)\parallel(CD)$.
+* $K$ milieu de $[AB] \iff \vv{AK}=\vv{KB} \iff \vv{AK}=\frac{1}{2}\vv{AB}$.
+* **Chasles** : $\vv{AB}+\vv{BC}=\vv{AC}$ ; **parallélogramme** : $\vv{AB}+\vv{AC}=\vv{AD}$ ; **opposé** : $\vv{BA}=-\vv{AB}$ ; $\vv{u}-\vv{v}=\vv{u}+(-\vv{v})$.
+* **Pièges** : ne pas confondre sens et direction ; ne pas juxtaposer les origines pour additionner ; $AB+BC=AC$ est faux en général pour les longueurs.
+
+```{=latex}
+\end{boiteretenir}
+```

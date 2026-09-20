@@ -1,0 +1,615 @@
+---
+# =====================================================================
+#  Leçon + feuille d'exercices — Division des nombres relatifs (4e)
+#  Créé à partir de _template-cours-exercices.qmd, d'après le cours
+#  manuscrit nombre_relatif_quotient.jpg
+#  Compilation :  quarto render division-relatifs-4e.qmd
+# =====================================================================
+title: "Cours et exercices : division des nombres relatifs"
+subtitle: "Chapitre 2 --- Multiplication et division des nombres relatifs --- Classe de 4^e^"
+corrige: true   # passer à false pour imprimer la feuille SANS le corrigé
+cours: true     # passer à false pour imprimer la feuille SANS la partie cours
+                # (dans ce cas, renuméroter les titres de parties à la main)
+format:
+  pdf:
+    documentclass: article
+    papersize: a4
+    fontsize: 11pt
+    pdf-engine: pdflatex   # babel-français : espaces insécables avant ? ! ; :
+    number-sections: false
+    geometry:
+      - top=17mm
+      - bottom=18mm
+      - left=17mm
+      - right=17mm
+    include-in-header:
+      text: |
+        % babel chargé ici (et non via lang: fr) pour bénéficier de la
+        % typographie française : espaces insécables avant ? ! ; : et « »
+        \usepackage[french]{babel}
+        \usepackage{amsmath,amssymb}
+        \usepackage{enumitem}
+        \usepackage{multicol}
+        \usepackage{tikz}
+        \usepackage{xcolor}
+        \usepackage{titlesec}
+        \usepackage{titling}
+        \usepackage[most]{tcolorbox}
+
+        % bloc de titre compact
+        \setlength{\droptitle}{-16mm}
+        \posttitle{\par\end{center}\vspace{-6mm}}
+
+        \definecolor{ctitre}{HTML}{B22222}
+        \definecolor{csous}{HTML}{1F4E79}
+
+        \titleformat{\section}{\normalfont\large\bfseries\color{ctitre}}{\thesection}{0.5em}{}
+        \titleformat{\subsection}{\normalfont\normalsize\bfseries\color{csous}}{\thesubsection}{0.5em}{}
+        \titlespacing*{\section}{0pt}{2.2ex plus 1ex minus .2ex}{1.2ex plus .2ex}
+        \titlespacing*{\subsection}{0pt}{2.4ex plus 1ex minus .2ex}{1ex plus .2ex}
+
+        \setlist[enumerate]{itemsep=0.4em, topsep=0.35em}
+        \setlist[itemize]{itemsep=0.3em, topsep=0.3em}
+        \setlength{\columnsep}{8mm}
+
+        % espace de réponse laissé à l'élève
+        \newcommand{\rep}[1][12mm]{\par\vspace{#1}}
+
+        % ---------------------------------------------------------------
+        %  Boîtes de la partie COURS
+        % ---------------------------------------------------------------
+        \definecolor{cdef}{HTML}{1F4E79}   % bleu   — définitions
+        \definecolor{cprop}{HTML}{B22222}  % rouge  — propriétés et règles
+        \definecolor{cmeth}{HTML}{1F7A4D}  % vert   — méthodes
+        \definecolor{cexo}{HTML}{6B5B95}   % violet — exemples et remarques
+
+        \tcbset{boitecours/.style={
+          enhanced, breakable, boxrule=0.6pt, arc=1.2mm,
+          fonttitle=\bfseries, coltitle=white,
+          left=2.6mm, right=2.6mm, top=1.8mm, bottom=1.8mm,
+          before skip=3.2mm, after skip=3.2mm}}
+
+        \newtcolorbox{boitedef}[1][Définition]%
+          {boitecours, colback=cdef!5, colframe=cdef, title={#1}}
+        \newtcolorbox{boiteprop}[1][Propriété]%
+          {boitecours, colback=cprop!5, colframe=cprop, title={#1}}
+        \newtcolorbox{boitemeth}[1][Méthode]%
+          {boitecours, colback=cmeth!5, colframe=cmeth, title={#1}}
+        \newtcolorbox{boiteex}[1][Exemple]%
+          {boitecours, colback=white, colframe=cexo!70, coltitle=cexo,
+           colbacktitle=white, title={#1}}
+        \newtcolorbox{boiteretenir}%
+          {boitecours, colback=ctitre!4, colframe=ctitre, sharp corners=downhill}
+---
+
+```{=latex}
+\noindent\textbf{Nom :} \hrulefill\ \textbf{Prénom :} \hrulefill\ \textbf{Classe :} \hrulefill
+
+\vspace{1.5mm}
+\noindent{\small\itshape Difficulté : $\star$ application directe du cours, $\star\star$ il faut réfléchir, $\star\star\star$ pour aller plus loin.}
+
+\vspace{1.5mm}\hrule
+```
+
+::: {.content-visible when-meta="cours"}
+
+# Partie 1 --- Cours
+
+## 1. Rappel : multiplier deux nombres relatifs
+
+```{=latex}
+\begin{boiteprop}[Rappel : règle des signes d'un produit]
+```
+
+Le produit de deux nombres relatifs :
+
+* de **même signe** est **positif** ;
+* de **signes différents** est **négatif**.
+
+Sa distance à zéro est le produit des distances à zéro des deux nombres.
+
+```{=latex}
+\end{boiteprop}
+```
+
+```{=latex}
+\begin{boiteex}[Exemples]
+\begin{multicols}{2}
+```
+
+* $(-3)\times(-8)=24$
+* $7\times(-6)=-42$
+* $(-5)\times 4=-20$
+* $2{,}5\times 4=10$
+
+```{=latex}
+\end{multicols}
+\end{boiteex}
+```
+
+## 2. Quotient de deux nombres relatifs
+
+```{=latex}
+\begin{boitedef}[Définition : quotient]
+```
+
+Soient $a$ et $b$ deux nombres relatifs avec $b\neq 0$.
+
+Le **quotient de $a$ par $b$** est le nombre qui, **multiplié par $b$, donne $a$**.
+
+On le note $a:b$, $a\div b$, ou en écriture fractionnaire $\dfrac{a}{b}$.
+
+```{=latex}
+\end{boitedef}
+```
+
+```{=latex}
+\begin{boiteex}[Exemples]
+```
+
+* Le quotient de $-24$ par $-3$ est $8$, car $8\times(-3)=-24$. On écrit $(-24)\div(-3)=8$ ou $\dfrac{-24}{-3}=8$.
+* Le quotient de $35$ par $-7$ est $-5$, car $(-5)\times(-7)=35$.
+
+```{=latex}
+\end{boiteex}
+```
+
+```{=latex}
+\begin{boiteex}[Remarques]
+```
+
+* On ne peut **pas diviser par $0$** : aucun nombre multiplié par $0$ ne donne $7$, donc « $7\div 0$ » n'a pas de sens.
+* En revanche $0$ divisé par n'importe quel nombre non nul donne $0$ : $0\div(-4)=0$, car $0\times(-4)=0$.
+
+```{=latex}
+\end{boiteex}
+```
+
+## 3. Calculer un quotient : la règle des signes
+
+```{=latex}
+\begin{boiteprop}[Règle des signes d'un quotient]
+```
+
+Le quotient de deux nombres relatifs :
+
+* de **même signe** est **positif** ;
+* de **signes différents** est **négatif**.
+
+C'est la **même règle** que pour la multiplication.
+
+```{=latex}
+\end{boiteprop}
+```
+
+```{=latex}
+\begin{boitemeth}[Méthode : calculer le quotient de deux nombres relatifs]
+```
+
+1. **Déterminer le signe** du résultat avec la règle des signes.
+2. **Diviser les distances à zéro** des deux nombres.
+
+```{=latex}
+\end{boitemeth}
+```
+
+```{=latex}
+\begin{boiteex}[Exemples : calculer mentalement]
+```
+
+```{=latex}
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Calcul} & \textbf{Signes} & \textbf{Distances à zéro} & \textbf{Résultat} \\ \hline
+$64\div(-8)$      & différents $\to$ négatif & $64\div 8=8$   & $\mathbf{-8}$ \\ \hline
+$(-24)\div(-3)$   & même signe $\to$ positif & $24\div 3=8$   & $\mathbf{8}$  \\ \hline
+$(-54)\div(+6)$   & différents $\to$ négatif & $54\div 6=9$   & $\mathbf{-9}$ \\ \hline
+$36\div 4$        & même signe $\to$ positif & $36\div 4=9$   & $\mathbf{9}$  \\ \hline
+$(-7{,}2)\div(-0{,}8)$ & même signe $\to$ positif & $7{,}2\div 0{,}8=9$ & $\mathbf{9}$ \\ \hline
+$4{,}5\div(-9)$   & différents $\to$ négatif & $4{,}5\div 9=0{,}5$ & $\mathbf{-0{,}5}$ \\ \hline
+\end{tabular}
+\end{center}
+```
+
+```{=latex}
+\end{boiteex}
+```
+
+## 4. Signe d'une écriture fractionnaire
+
+```{=latex}
+\begin{boiteprop}[Propriété]
+```
+
+Pour tous nombres $a$ et $b$ avec $b\neq 0$ :
+$$\frac{-a}{b}=\frac{a}{-b}=-\frac{a}{b}.$$
+
+Un signe « $-$ » peut donc se placer indifféremment **au numérateur**, **au dénominateur** ou **devant** la fraction. Par convention, on ne laisse pas de signe « $-$ » au dénominateur.
+
+```{=latex}
+\end{boiteprop}
+```
+
+```{=latex}
+\begin{boiteex}[Exemples]
+```
+
+* $\dfrac{-15}{3}=\dfrac{15}{-3}=-\dfrac{15}{3}=-5$.
+* $\dfrac{-2}{-5}=\dfrac{2}{5}=0{,}4$ (deux signes « $-$ » : le quotient est positif).
+* $(-2)\div 3=\dfrac{-2}{3}=-\dfrac{2}{3}$ : ce quotient n'est pas un nombre décimal, on le laisse en écriture fractionnaire ($-\dfrac{2}{3}\approx-0{,}67$).
+
+```{=latex}
+\end{boiteex}
+```
+
+## 5. Division dans un enchaînement de calculs
+
+```{=latex}
+\begin{boiteprop}[Priorités]
+```
+
+Dans une expression sans parenthèses, les **multiplications et les divisions** ont la même priorité : on les effectue **de gauche à droite**, avant les additions et les soustractions.
+
+```{=latex}
+\end{boiteprop}
+```
+
+```{=latex}
+\begin{boiteex}[Exemple rédigé]
+```
+
+$$
+\begin{aligned}
+A &= (-12)\div(-4)\times(-3)+5 \\
+  &= 3\times(-3)+5 && \text{(division en premier : $(-12)\div(-4)=3$)}\\
+  &= -9+5 && \text{(puis la multiplication)}\\
+  &= -4
+\end{aligned}
+$$
+
+```{=latex}
+\end{boiteex}
+```
+
+## 6. À retenir
+
+```{=latex}
+\begin{boiteretenir}
+```
+
+* **Quotient de $a$ par $b$** ($b\neq 0$) : le nombre qui, multiplié par $b$, donne $a$. Notations : $a:b$, $a\div b$, $\frac{a}{b}$.
+* **Règle des signes** (la même que pour le produit) : même signe $\to$ positif ; signes différents $\to$ négatif.
+* **Méthode** : 1. le signe ; 2. la division des distances à zéro.
+* $\frac{-a}{b}=\frac{a}{-b}=-\frac{a}{b}$ ; **on ne divise jamais par $0$**.
+* **Piège à éviter :** la règle des signes ne s'applique qu'aux produits et quotients, **pas** aux additions : $(-6)+(-2)=-8$ mais $(-6)\div(-2)=3$.
+
+```{=latex}
+\end{boiteretenir}
+```
+
+:::
+
+# Partie 2 --- Questions de cours
+
+*Répondre par des phrases complètes, sans regarder la partie 1.*
+
+1. Donner la définition du quotient de $a$ par $b$. Pourquoi impose-t-on $b\neq 0$ ?
+   \rep[18mm]
+
+2. Énoncer la règle des signes d'un quotient de deux nombres relatifs.
+   \rep[14mm]
+
+3. Décrire la méthode pour calculer un quotient de deux nombres relatifs, puis l'appliquer à $(-45)\div(-9)$.
+   \rep[18mm]
+
+4. Écrire de trois façons différentes le quotient de $-7$ par $2$, puis donner sa valeur décimale.
+   \rep[14mm]
+
+{{< pagebreak >}}
+
+# Partie 3 --- QCM : teste tes réflexes
+
+*Une seule réponse est correcte par question. Cocher la bonne case. Durée conseillée : 10 minutes.*
+
+```{=latex}
+\begingroup\setlength{\parskip}{3.6mm}
+```
+
+**1.** $(-42)\div(-6)$ est égal à :\
+$\square$ **a.** $-7$ $\qquad$ $\square$ **b.** $7$ $\qquad$ $\square$ **c.** $-36$ $\qquad$ $\square$ **d.** $36$
+
+**2.** Le quotient de deux nombres relatifs de signes différents est :\
+$\square$ **a.** toujours positif $\qquad$ $\square$ **b.** toujours négatif $\qquad$ $\square$ **c.** toujours nul $\qquad$ $\square$ **d.** positif ou négatif selon les nombres
+
+**3.** $5\div(-0{,}5)$ est égal à :\
+$\square$ **a.** $-10$ $\qquad$ $\square$ **b.** $-2{,}5$ $\qquad$ $\square$ **c.** $10$ $\qquad$ $\square$ **d.** $-1$
+
+**4.** $-\dfrac{3}{4}$ est égal à :\
+$\square$ **a.** $\dfrac{3}{4}$ $\qquad$ $\square$ **b.** $\dfrac{-3}{-4}$ $\qquad$ $\square$ **c.** $\dfrac{3}{-4}$ $\qquad$ $\square$ **d.** $-\dfrac{4}{3}$
+
+**5.** Le nombre qui, multiplié par $-7$, donne $63$ est :\
+$\square$ **a.** $9$ $\qquad$ $\square$ **b.** $-9$ $\qquad$ $\square$ **c.** $56$ $\qquad$ $\square$ **d.** $-56$
+
+**6.** $(-8)\div 2\times(-3)$ est égal à :\
+$\square$ **a.** $-12$ $\qquad$ $\square$ **b.** $12$ $\qquad$ $\square$ **c.** $\dfrac{4}{3}$ $\qquad$ $\square$ **d.** $-\dfrac{4}{3}$
+
+```{=latex}
+\endgroup
+\vspace{6mm}
+\begin{center}
+\small
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+\textbf{Question} & 1 & 2 & 3 & 4 & 5 & 6 \\ \hline
+\textbf{Réponse}  & & & & & & \\[3mm] \hline
+\end{tabular}
+\end{center}
+
+\vspace{3mm}
+\begin{center}\textbf{Score : \makebox[2.5cm]{\dotfill} / 6}\end{center}
+```
+
+{{< pagebreak >}}
+
+# Partie 4 --- Exercices
+
+## Exercice 1 --- Le signe sans calculer $\star$
+
+Sans effectuer le calcul, compléter le tableau par le signe ($+$ ou $-$) de chaque quotient.
+
+```{=latex}
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+\textbf{Quotient} & $(-56)\div 7$ & $(-81)\div(-9)$ & $12{,}6\div(-3)$ & $\dfrac{-4}{-5}$ & $\dfrac{9}{-2}$ & $-\dfrac{-3}{7}$ \\[2mm] \hline
+\textbf{Signe} & & & & & & \\[4mm] \hline
+\end{tabular}
+\end{center}
+```
+
+## Exercice 2 --- Calcul mental $\star$
+
+Calculer mentalement.
+
+```{=latex}
+\begin{multicols}{3}
+```
+
+a. $(-63)\div 7$
+b. $(-48)\div(-6)$
+c. $72\div(-8)$
+d. $(-100)\div(-4)$
+e. $0\div(-9)$
+f. $(-15)\div(-15)$
+g. $56\div(-7)$
+h. $(-32)\div 4$
+i. $(-1)\div(-1)$
+
+```{=latex}
+\end{multicols}
+```
+
+\rep[24mm]
+
+## Exercice 3 --- Avec des nombres décimaux $\star$
+
+Calculer.
+
+```{=latex}
+\begin{multicols}{2}
+```
+
+a. $(-7{,}2)\div(-0{,}8)$
+b. $4{,}5\div(-9)$
+c. $(-1)\div 4$
+d. $(-12{,}6)\div 3$
+e. $(-3)\div(-0{,}5)$
+f. $0{,}6\div(-0{,}2)$
+
+```{=latex}
+\end{multicols}
+```
+
+\rep[34mm]
+
+## Exercice 4 --- Écritures fractionnaires $\star\star$
+
+**1.** Calculer chaque quotient (donner une valeur décimale lorsque c'est possible, sinon une fraction simplifiée).
+
+```{=latex}
+\begingroup\renewcommand{\tightlist}{\setlength{\itemsep}{2.5mm}}
+\begin{multicols}{3}
+```
+
+a. $\dfrac{-18}{6}$
+b. $\dfrac{21}{-7}$
+c. $\dfrac{-30}{-5}$
+d. $-\dfrac{-9}{3}$
+e. $\dfrac{-5}{2}$
+f. $\dfrac{-4}{-6}$
+
+```{=latex}
+\end{multicols}
+\endgroup
+```
+
+\rep[28mm]
+
+**2.** Compléter chaque égalité par le nombre qui convient.
+
+```{=latex}
+\begin{center}
+$\dfrac{-4}{5}=\dfrac{4}{\dots}=-\dfrac{\dots}{5}$ \qquad\qquad
+$\dfrac{-7}{-3}=\dfrac{7}{\dots}$ \qquad\qquad
+$-\dfrac{2}{9}=\dfrac{\dots}{9}=\dfrac{2}{\dots}$
+\end{center}
+```
+
+\rep[16mm]
+
+{{< pagebreak >}}
+
+## Exercice 5 --- Trouver le nombre manquant $\star\star$
+
+Dans chaque égalité, trouver le nombre qui remplace le symbole $\bullet$. Justifier avec la définition du quotient.
+
+```{=latex}
+\begin{multicols}{2}
+```
+
+a. $(-8)\times\bullet=56$
+b. $\bullet\div(-4)=-7$
+c. $45\div\bullet=-9$
+d. $\bullet\times(-2{,}5)=10$
+e. $\bullet\div 6=-1{,}5$
+f. $(-3)\times\bullet=-0{,}9$
+
+```{=latex}
+\end{multicols}
+```
+
+\rep[40mm]
+
+## Exercice 6 --- Enchaînements de calculs $\star\star$
+
+Calculer en détaillant les étapes, comme dans l'exemple du cours.
+
+```{=latex}
+\begin{multicols}{2}
+```
+
+* $A=(-20)\div 5+(-3)\times 2$
+* $B=(-3)\times(-8)\div(-6)$
+* $C=\big(15-(-5)\big)\div(-4)$
+* $D=(-36)\div(-6)\div(-2)$
+* $E=\dfrac{-2-7}{-3}+4$
+* $F=\dfrac{(-5)\times 4}{-8+6}$
+
+```{=latex}
+\end{multicols}
+```
+
+\rep[62mm]
+
+{{< pagebreak >}}
+
+## Exercice 7 --- Problèmes $\star\star$
+
+1. **Températures.** Les températures relevées à Chamonix chaque matin pendant une semaine ont été : $-3$ °C, $-5$ °C, $-1$ °C, $0$ °C, $-4$ °C, $-6$ °C et $-2$ °C. Calculer la température moyenne de la semaine.
+
+2. **Le plongeur.** Un plongeur descend à vitesse constante : en $8$ minutes, son altitude varie de \mbox{$-36$~m}. De combien varie son altitude en une minute ?
+
+3. **La dette.** Quatre amis se partagent équitablement une dette de \mbox{$-150$~€} (chacun doit la même somme). Quelle est la part de chacun ? Écrire le calcul avec un quotient de nombres relatifs.
+
+\rep[55mm]
+
+## Exercice 8 --- Vrai ou faux $\star\star\star$
+
+Pour chaque affirmation, répondre par **vrai** ou **faux**, puis justifier : par une phrase si c'est vrai, par un contre-exemple si c'est faux.
+
+a. Le quotient de deux nombres négatifs est un nombre négatif.
+b. Si $a\div b$ est négatif, alors $a$ et $b$ sont de signes différents.
+c. Pour tout nombre $a$, on a $a\div(-1)=-a$.
+d. Le quotient de deux nombres relatifs est toujours plus petit que le premier nombre.
+
+\rep[38mm]
+
+{{< pagebreak >}}
+
+## Exercice 9 --- Exercice de recherche : les nombres mystères $\star\star\star$
+
+**1.** Trouver deux nombres relatifs $a$ et $b$ tels que $a\div b=-6$ et $a+b=-25$.
+
+*Aide : commencer par exprimer $a$ en fonction de $b$ grâce à la définition du quotient, puis tester des valeurs entières de $b$.*
+
+\rep[45mm]
+
+**2.** Trouver deux nombres relatifs $a$ et $b$ tels que $a\div b=4$ et $a+b=-15$.
+
+\rep[35mm]
+
+**Pour aller plus loin.** Quel est le signe du nombre $\dfrac{(-2)\times(-3)\times(-4)\times(-5)}{(-1)\times(-6)\times(-10)}$ ? Trouver une règle donnant le signe d'un quotient de produits à partir du **nombre de facteurs négatifs**.
+
+\rep[45mm]
+
+::: {.content-visible when-meta="corrige"}
+
+{{< pagebreak >}}
+
+# Corrigé
+
+## Partie 2 --- Questions de cours
+
+1. Le quotient de $a$ par $b$ ($b\neq0$) est le nombre qui, multiplié par $b$, donne $a$. On impose $b\neq0$ car aucun nombre multiplié par $0$ ne peut donner un nombre non nul : la division par $0$ n'a pas de sens.
+2. Le quotient de deux nombres de même signe est positif ; le quotient de deux nombres de signes différents est négatif.
+3. On détermine d'abord le signe avec la règle des signes, puis on divise les distances à zéro. $(-45)\div(-9)$ : même signe donc positif ; $45\div9=5$ ; donc $(-45)\div(-9)=5$.
+4. $(-7):2$, $(-7)\div2$, $\dfrac{-7}{2}$ (ou $-\dfrac{7}{2}$). Valeur : $-3{,}5$.
+
+## Partie 3 --- QCM
+
+```{=latex}
+\begin{center}
+\small
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+\textbf{Question} & 1 & 2 & 3 & 4 & 5 & 6 \\ \hline
+\textbf{Réponse}  & b & b & a & c & b & b \\ \hline
+\end{tabular}
+\end{center}
+```
+
+*Justifications rapides :* **3.** $5\div0{,}5=10$, signes différents donc $-10$. **4.** $\dfrac{3}{-4}=-\dfrac{3}{4}$ ; attention, $\dfrac{-3}{-4}=+\dfrac{3}{4}$. **5.** $(-9)\times(-7)=63$. **6.** De gauche à droite : $(-8)\div2=-4$, puis $(-4)\times(-3)=12$.
+
+## Partie 4 --- Exercices
+
+**Exercice 1.**
+
+| Quotient | $(-56)\div7$ | $(-81)\div(-9)$ | $12{,}6\div(-3)$ | $\frac{-4}{-5}$ | $\frac{9}{-2}$ | $-\frac{-3}{7}$ |
+|:--|:--:|:--:|:--:|:--:|:--:|:--:|
+| Signe | $-$ | $+$ | $-$ | $+$ | $-$ | $+$ |
+
+(Pour le dernier : $\frac{-3}{7}$ est négatif, et son opposé est positif.)
+
+**Exercice 2.** a. $-9$ ; b. $8$ ; c. $-9$ ; d. $25$ ; e. $0$ ; f. $1$ ; g. $-8$ ; h. $-8$ ; i. $1$.
+
+**Exercice 3.** a. $9$ ; b. $-0{,}5$ ; c. $-0{,}25$ ; d. $-4{,}2$ ; e. $6$ ; f. $-3$.
+
+**Exercice 4.**
+
+1. a. $-3$ ; b. $-3$ ; c. $6$ ; d. $-(-3)=3$ ; e. $-2{,}5$ ; f. $\dfrac{-4}{-6}=\dfrac{4}{6}=\dfrac{2}{3}$ (non décimal).
+2. $\dfrac{-4}{5}=\dfrac{4}{-5}=-\dfrac{4}{5}$ ; $\quad\dfrac{-7}{-3}=\dfrac{7}{3}$ ; $\quad-\dfrac{2}{9}=\dfrac{-2}{9}=\dfrac{2}{-9}$.
+
+**Exercice 5.** Le nombre cherché est un quotient (définition : « le nombre qui, multiplié par…, donne… »).
+
+a. $\bullet=56\div(-8)=-7$ ; b. $\bullet=(-7)\times(-4)=28$ ; c. $\bullet=45\div(-9)=-5$ ; d. $\bullet=10\div(-2{,}5)=-4$ ; e. $\bullet=(-1{,}5)\times6=-9$ ; f. $\bullet=(-0{,}9)\div(-3)=0{,}3$.
+
+**Exercice 6.**
+
+$A=(-4)+(-6)=-10$ ; $\quad B=24\div(-6)=-4$ ; $\quad C=20\div(-4)=-5$ ;
+
+$D=6\div(-2)=-3$ ; $\quad E=\dfrac{-9}{-3}+4=3+4=7$ ; $\quad F=\dfrac{-20}{-2}=10$.
+
+**Exercice 7.**
+
+1. Somme : $(-3)+(-5)+(-1)+0+(-4)+(-6)+(-2)=-21$. Moyenne : $(-21)\div7=-3$ °C.
+2. $(-36)\div8=-4{,}5$ : son altitude varie de \mbox{$-4{,}5$~m} par minute (il descend de $4{,}5$ m chaque minute).
+3. $(-150)\div4=-37{,}5$ : chacun a une dette de $37{,}5$ €, soit une part de \mbox{$-37{,}5$~€}.
+
+**Exercice 8.**
+
+a. **Faux** : $(-8)\div(-2)=4$, positif (deux nombres de même signe).
+b. **Vrai** : d'après la règle des signes, un quotient négatif ne peut provenir que de deux nombres de signes différents.
+c. **Vrai** : $a\div(-1)$ est le nombre qui, multiplié par $-1$, donne $a$ ; or $(-a)\times(-1)=a$. Par exemple $5\div(-1)=-5$ et $(-3)\div(-1)=3$.
+d. **Faux** : $(-8)\div(-2)=4$ et $4>-8$ ; ou encore $6\div0{,}5=12>6$.
+
+**Exercice 9.**
+
+1. $a\div b=-6$ signifie $a=-6\times b$. Alors $a+b=-6b+b=-5b=-25$, donc $b=5$ et $a=-30$. Vérification : $(-30)\div5=-6$ et $-30+5=-25$.
+2. $a=4b$, donc $a+b=5b=-15$, d'où $b=-3$ et $a=-12$. Vérification : $(-12)\div(-3)=4$ et $-12+(-3)=-15$.
+
+*Pour aller plus loin :* le numérateur compte $4$ facteurs négatifs, il est positif ($120$) ; le dénominateur en compte $3$, il est négatif ($-60$). Le quotient est donc négatif ($-2$). Règle : on compte le nombre **total** de facteurs négatifs (numérateur et dénominateur réunis) ; s'il est **pair**, le résultat est positif, s'il est **impair**, il est négatif. Ici $4+3=7$, impair : négatif.
+
+:::
